@@ -97,9 +97,9 @@ class _S19screentimeState extends State<S19screentimeScreen> {
                   // Slider
                   Slider(
                     value: _screenTime,
-                    min: 10,
+                    min: 20,
                     max: 120,
-                    divisions: 22,
+                    divisions: 5,
                     label: '${_screenTime.toInt()}m',
                     activeColor: const Color(0xFF4F46E5),
                     inactiveColor: const Color(0xFFE2E8F0),
