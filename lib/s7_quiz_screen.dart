@@ -12,7 +12,6 @@ class S7quizScreen extends StatefulWidget {
 }
 
 class _S7quizScreenState extends State<S7quizScreen> {
-
   @override
   Widget build(BuildContext context) {
     // Xác định thiết bị bằng Width (Tablet > 600)
@@ -38,18 +37,42 @@ class _S7quizScreenState extends State<S7quizScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('CÂU HỎI 3/10', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.indigoAccent, fontSize: 11)),
+                          const Text(
+                            'CÂU HỎI 3/10',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.indigoAccent,
+                              fontSize: 11,
+                            ),
+                          ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(color: Colors.amber[100], borderRadius: BorderRadius.circular(10)),
-                            child: const Text('⭐ +5', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.orange)),
-                          )
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.amber[100],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Text(
+                              '⭐ +5',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                color: Colors.orange,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 12),
                       Text(
                         'Đâu là quả "Apple" hả bé?',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: const Color(0xFF0F172A)),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: const Color(0xFF0F172A),
+                        ),
                       ),
                     ],
                   ),
@@ -65,7 +88,12 @@ class _S7quizScreenState extends State<S7quizScreen> {
                         childAspectRatio: 1.1,
                         children: [
                           _buildQuizOption('🍌', 'Banana', false, context),
-                          _buildQuizOption('🍎', 'Apple', true, context), // Đúng
+                          _buildQuizOption(
+                            '🍎',
+                            'Apple',
+                            true,
+                            context,
+                          ), // Đúng
                           _buildQuizOption('🍉', 'Watermelon', false, context),
                           _buildQuizOption('🍇', 'Grape', false, context),
                         ],
@@ -78,9 +106,13 @@ class _S7quizScreenState extends State<S7quizScreen> {
                     alignment: Alignment.center,
                     child: Text(
                       'Bé hãy bấm vào hình ảnh đúng nhé! 🐼',
-                      style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             );
@@ -90,16 +122,28 @@ class _S7quizScreenState extends State<S7quizScreen> {
     );
   }
 
-  Widget _buildQuizOption(String emoji, String text, bool isCorrect, BuildContext context) {
+  Widget _buildQuizOption(
+    String emoji,
+    String text,
+    bool isCorrect,
+    BuildContext context,
+  ) {
     return GestureDetector(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: isCorrect ? const Color(0xFF10B981) : Colors.red,
-            content: Text(isCorrect ? 'Tuyệt vời ba mẹ ơi! Bé chọn ĐÚNG rồi! 🎉' : 'Sai rồi bé ơi, thử lại nhé! 🐻'),
+            content: Text(
+              isCorrect
+                  ? 'Tuyệt vời ba mẹ ơi! Bé chọn ĐÚNG rồi! 🎉'
+                  : 'Sai rồi bé ơi, thử lại nhé! 🐻',
+            ),
             duration: const Duration(seconds: 1),
           ),
         );
+        if (isCorrect) {
+          Navigator.pushNamed(context, '/s8_reward');
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -111,7 +155,7 @@ class _S7quizScreenState extends State<S7quizScreen> {
               color: Colors.black.withOpacity(0.02),
               blurRadius: 8,
               offset: const Offset(0, 4),
-            )
+            ),
           ],
         ),
         child: Column(
@@ -119,11 +163,13 @@ class _S7quizScreenState extends State<S7quizScreen> {
           children: [
             Text(emoji, style: const TextStyle(fontSize: 48)),
             const SizedBox(height: 4),
-            Text(text, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
+            Text(
+              text,
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+            ),
           ],
         ),
       ),
     );
   }
-
 }

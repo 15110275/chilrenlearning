@@ -156,7 +156,7 @@ class _S17parentdashboardState extends State<S17parentdashboardScreen> {
                             Expanded(
                               child: _buildShortcutButton(
                                 icon: Icons.playlist_add_check_rounded,
-                                title: 'Mục Tiêu Học',
+                                title: '🎯 Mục tiêu',
                                 subtitle: '5 bài / 15 phút',
                                 color: const Color(0xFF6366F1),
                                 onTap: () {
@@ -167,17 +167,32 @@ class _S17parentdashboardState extends State<S17parentdashboardScreen> {
                                 },
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: _buildShortcutButton(
-                                icon: Icons.screen_lock_portrait_rounded,
-                                title: 'Hạn Thời Gian',
-                                subtitle: '30 phút sử dụng',
+                                icon: Icons.access_time_rounded,
+                                title: '⏳ Thời gian',
+                                subtitle: '30m giới hạn',
                                 color: const Color(0xFFEC4899),
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
                                     '/s19_screen_time',
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildShortcutButton(
+                                icon: Icons.layers_rounded,
+                                title: '📂 Chủ đề học',
+                                subtitle: 'Quản lý bài học',
+                                color: const Color(0xFF10B981),
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/s22_voice_chat',
                                   );
                                 },
                               ),
@@ -192,11 +207,7 @@ class _S17parentdashboardState extends State<S17parentdashboardScreen> {
                   Container(
                     padding: const EdgeInsets.only(top: 12),
                     decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(
-                          color: Color(0xFFE2E8F0),
-                        ),
-                      ),
+                      border: Border(top: BorderSide(color: Color(0xFFE2E8F0))),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -316,33 +327,40 @@ class _S17parentdashboardState extends State<S17parentdashboardScreen> {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
         decoration: BoxDecoration(
           color: color.withOpacity(0.05),
           border: Border.all(color: color.withOpacity(0.15)),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color, size: 22),
-            const SizedBox(height: 8),
+            Icon(icon, color: color, size: 20),
+            const SizedBox(height: 6),
             Text(
               title,
+              textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 10,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF0F172A),
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
             Text(
               subtitle,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 9,
+                fontSize: 8,
                 color: Colors.grey[600],
                 fontWeight: FontWeight.bold,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
