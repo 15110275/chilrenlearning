@@ -1,3 +1,5 @@
+import 'package:chidren_learning/pages/onboarding/onboarding_screen.dart';
+import 'package:chidren_learning/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -5,8 +7,6 @@ import 'package:flutter/services.dart';
 // 1. DANH SÁCH KHAI BÁO IMPORT (ĐỒNG BỘ 100% VỚI THƯ MỤC CỦA BẠN)
 // Khi bạn viết xong Class bên trong file nào, hãy bỏ dấu '//' ở đầu dòng đó.
 // =========================================================================
-import 's1_splash_screen.dart';
-import 's2_onboarding_screen.dart';
 import 's3_parent_gate_screen.dart';
 import 's4_home_screen.dart';
 import 's5_module_screen.dart';
@@ -82,7 +82,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
         cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 4,
-          shadowColor: Colors.black.withOpacity(0.04),
+          shadowColor: Colors.black.withValues(alpha: 0.04),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
@@ -96,7 +96,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             elevation: 3,
-            shadowColor: const Color(0xFF4F46E5).withOpacity(0.2),
+            shadowColor: const Color(0xFF4F46E5).withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -113,18 +113,18 @@ class BeHocTiengAnhApp extends StatelessWidget {
         switch (settings.name) {
           case '/':
             builder =
-                const S1splashScreen(); // Luồng Splash tự động chuyển tiếp
+                const SplashScreen(); // Luồng Splash tự động chuyển tiếp
             break;
 
           case '/s1_splash':
             // Khi s1 đã sẵn sàng, hãy bỏ cmt dòng dưới:
-            builder = const S1splashScreen();
+            builder = const SplashScreen();
             // builder = const DummyScreenPlaceholder(id: 1, name: 'Splash Screen');
             break;
 
           case '/s2_onboarding':
             // Khi s2 đã sẵn sàng, hãy bỏ cmt dòng dưới:
-            builder = const S2onboardingScreen();
+            builder = const OnboardingScreen();
             // builder = const DummyScreenPlaceholder(id: 2, name: 'Onboarding Carousel');
             break;
 
@@ -182,7 +182,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
             // builder = const DummyScreenPlaceholder(id: 11, name: 'Badge Achieved');
             break;
 
-          case '/s12_map':
+          case '/s12_learning_map':
             // Khi s12 đã sẵn sàng:
             builder = const S12mapScreen();
             // builder = const DummyScreenPlaceholder(id: 12, name: 'Interactive Road Map');
@@ -410,7 +410,7 @@ class _MainResponsiveNavigationState extends State<MainResponsiveNavigation> {
               elevation: 4,
               indicatorColor: Theme.of(
                 context,
-              ).colorScheme.primary.withOpacity(0.1),
+              ).colorScheme.primary.withValues(alpha: 0.1),
               selectedIconTheme: IconThemeData(
                 color: Theme.of(context).colorScheme.primary,
                 size: 28,
@@ -465,7 +465,7 @@ class _MainResponsiveNavigationState extends State<MainResponsiveNavigation> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.06),
+                    color: Colors.black.withValues(alpha: 0.06),
                     blurRadius: 16,
                     offset: const Offset(0, -4),
                   ),
@@ -482,7 +482,7 @@ class _MainResponsiveNavigationState extends State<MainResponsiveNavigation> {
                 elevation: 0,
                 indicatorColor: Theme.of(
                   context,
-                ).colorScheme.primary.withOpacity(0.1),
+                ).colorScheme.primary.withValues(alpha: 0.1),
                 destinations: const [
                   NavigationDestination(
                     icon: Icon(Icons.school_outlined),
@@ -596,7 +596,7 @@ class DashboardPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF4F46E5).withOpacity(0.2),
+                  color: const Color(0xFF4F46E5).withValues(alpha: 0.2),
                   blurRadius: 12,
                   offset: const Offset(0, 6),
                 ),
@@ -736,7 +736,7 @@ class DashboardPage extends StatelessWidget {
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: textCol.withOpacity(0.12)),
+          border: Border.all(color: textCol.withValues(alpha: 0.12)),
         ),
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -758,7 +758,7 @@ class DashboardPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
-                color: textCol.withOpacity(0.65),
+                color: textCol.withValues(alpha: 0.65),
               ),
             ),
           ],
@@ -960,7 +960,7 @@ class DevQuickNavigatorDrawer extends StatelessWidget {
         'phase': 'Tương Tác',
       },
       {
-        'route': '/s12_map',
+        'route': '/s12_learning_map',
         'name': '12. Interactive Road Map',
         'icon': '🗺️',
         'phase': 'Tương Tác',
@@ -1109,7 +1109,7 @@ class DevQuickNavigatorDrawer extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: _getPhaseColor(item['phase']).withOpacity(0.1),
+                        color: _getPhaseColor(item['phase']).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -1189,7 +1189,7 @@ class DummyScreenPlaceholder extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(
                     context,
-                  ).colorScheme.primary.withOpacity(0.08),
+                  ).colorScheme.primary.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -1215,7 +1215,7 @@ class DummyScreenPlaceholder extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.withOpacity(0.15)),
+                  border: Border.all(color: Colors.grey.withValues(alpha: 0.15)),
                 ),
                 child: Column(
                   children: [

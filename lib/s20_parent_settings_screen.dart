@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Flutter Widget mô phỏng màn hình: PARENT SETTINGS
-/// Hỗ trợ responsive toàn diện cho cả thiết bị di động (Mobile) và Máy tính bảng (Tablet)
-/// Phục vụ hiển thị trên Android Studio IDE & ứng dụng đa nền tảng Flutter.
+/// Flutter Widget - PARENT SETTINGS (SIMPLE KID-FRIENDLY VERSION)
+/// UI sinh động nhưng không animation phức tạp
+/// Responsive cho Mobile & Tablet
 
 class S20parentsettingsScreen extends StatefulWidget {
   const S20parentsettingsScreen({super.key});
@@ -18,319 +18,490 @@ class _S20parentsettingsState extends State<S20parentsettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Xác định thiết bị bằng Width (Tablet > 600)
     final double screenWidth = MediaQuery.of(context).size.width;
     final bool isTablet = screenWidth > 600;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F9FD), // Màu nền canvas nhẹ
+      backgroundColor: const Color(0xFFF0F8FF),
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Layout thích ứng động dựa trên kích thước khung màn hình của Android Studio
-            return Padding(
-              padding: EdgeInsets.all(isTablet ? 24.0 : 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Top Bar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          color: Color(0xFF64748B),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/s17_parent_dashboard');
-                        },
-                      ),
-                      const Text(
-                        'CÀI ĐẶT HỆ THỐNG',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF94A3B8),
-                          letterSpacing: 1.0,
-                        ),
-                      ),
-                      const SizedBox(width: 48), // Spacer to balance
-                    ],
+        child: Column(
+          children: [
+            // ============= HEADER =============
+            Container(
+              padding: EdgeInsets.all(isTablet ? 20.0 : 16.0),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF4F46E5), Color(0xFF6366F1)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF4F46E5).withOpacity(0.2),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
                   ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Cấu hình tài khoản phụ huynh',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF0F172A),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
-                  const SizedBox(height: 16),
-
-                  // Settings options list
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        // Sound setting
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFF1F5F9)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.volume_up_rounded,
-                                    color: Color(0xFF6366F1),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Nhạc nền & Phát âm',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF0F172A),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Switch(
-                                value: _soundOn,
-                                activeColor: const Color(0xFF4F46E5),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _soundOn = value;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // Language setting
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 14,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFF1F5F9)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.language_rounded,
-                                    color: Color(0xFF6366F1),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Ngôn ngữ giao diện',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF0F172A),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                _language,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF64748B),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // Notification setting
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFFF1F5F9)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.notifications_rounded,
-                                    color: Color(0xFF6366F1),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  const Text(
-                                    'Thông báo nhắc nhở',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF0F172A),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Switch(
-                                value: _notificationsOn,
-                                activeColor: const Color(0xFF4F46E5),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _notificationsOn = value;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(height: 12),
-
-                        // Delete all progress
-                        InkWell(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text(
-                                    'Xác nhận xóa',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  content: const Text(
-                                    'Bạn có chắc chắn muốn xóa tất cả tiến độ học tập và tích lũy sao của bé không?',
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text(
-                                        'Hủy bỏ',
-                                        style: TextStyle(
-                                          color: Color(0xFF64748B),
-                                        ),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Đã xóa toàn bộ lịch sử tiến độ thành công!',
-                                            ),
-                                            backgroundColor: Color(0xFFEF4444),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Đồng ý',
-                                        style: TextStyle(
-                                          color: Color(0xFFEF4444),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          borderRadius: BorderRadius.circular(16),
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFEF2F2),
-                              border: Border.all(
-                                color: const Color(0xFFFEE2E2),
-                              ),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Xóa toàn bộ dữ liệu',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFEF4444),
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.delete_forever_rounded,
-                                  color: Color(0xFFEF4444),
-                                  size: 20,
-                                ),
-                              ],
-                            ),
-                          ),
+                  const Text(
+                    '⚙️ CÀI ĐẶT HỆ THỐNG',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: 0.8,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 3,
+                          color: Colors.black26,
                         ),
                       ],
                     ),
                   ),
-
-                  // Paywall button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/s21_subscription_paywall',
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4F46E5),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                      child: const Text(
-                        'Xem Gói Premium (Paywall) ➔',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(width: 36),
                 ],
               ),
-            );
-          },
+            ),
+
+            // ============= SCROLLABLE CONTENT =============
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.all(isTablet ? 24.0 : 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      const Text(
+                        '👨‍👩‍👧 Cấu hình tài khoản phụ huynh',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF0F172A),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Sound Setting
+                      _buildSettingItem(
+                        emoji: '🔊',
+                        title: 'Nhạc nền & Phát âm',
+                        subtitle: 'Bật/tắt âm thanh học tập',
+                        color: const Color(0xFF6366F1),
+                        bgGradient: [
+                          const Color(0xFFEEF2FF),
+                          const Color(0xFFDDD6FE),
+                        ],
+                        trailing: Switch(
+                          value: _soundOn,
+                          activeColor: const Color(0xFF10B981),
+                          inactiveTrackColor: Colors.grey[200],
+                          onChanged: (value) {
+                            setState(() {
+                              _soundOn = value;
+                            });
+                          },
+                        ),
+                      ),
+
+                      // Language Setting
+                      InkWell(
+                        onTap: () {
+                          _showLanguageDialog();
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: _buildSettingItem(
+                          emoji: '🌍',
+                          title: 'Ngôn ngữ giao diện',
+                          subtitle: 'Chọn ngôn ngữ hiển thị',
+                          color: const Color(0xFFC084FC),
+                          bgGradient: [
+                            const Color(0xFFF3E8FF),
+                            const Color(0xFFE9D5FF),
+                          ],
+                          trailing: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFC084FC)
+                                      .withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  _language,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w900,
+                                    color: Color(0xFFC084FC),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Color(0xFFC084FC),
+                                size: 14,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Notification Setting
+                      _buildSettingItem(
+                        emoji: '🔔',
+                        title: 'Thông báo nhắc nhở',
+                        subtitle: 'Nhận thông báo từ ứng dụng',
+                        color: const Color(0xFFF97316),
+                        bgGradient: [
+                          const Color(0xFFFFF7ED),
+                          const Color(0xFFFFDC82),
+                        ],
+                        trailing: Switch(
+                          value: _notificationsOn,
+                          activeColor: const Color(0xFF10B981),
+                          inactiveTrackColor: Colors.grey[200],
+                          onChanged: (value) {
+                            setState(() {
+                              _notificationsOn = value;
+                            });
+                          },
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Delete Data - Danger Zone
+                      InkWell(
+                        onTap: () {
+                          _showDeleteConfirmDialog();
+                        },
+                        borderRadius: BorderRadius.circular(16),
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                const Color(0xFFFEE2E2),
+                                const Color(0xFFFECACA),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            border: Border.all(
+                              color: const Color(0xFFEF4444).withOpacity(0.3),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFFEF4444)
+                                    .withOpacity(0.1),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Text('🗑️',
+                                      style:
+                                      TextStyle(fontSize: 24)),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    'Xóa toàn bộ dữ liệu',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w900,
+                                      color: Color(0xFFEF4444),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Color(0xFFEF4444),
+                                size: 14,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Premium Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/s21_subscription_paywall',
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4F46E5),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            elevation: 4,
+                            shadowColor: const Color(0xFF4F46E5)
+                                .withOpacity(0.4),
+                          ),
+                          child: const Text(
+                            '👑 Xem Gói Premium (Paywall) ➔',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSettingItem({
+    required String emoji,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required List<Color> bgGradient,
+    required Widget trailing,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: bgGradient,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Text(emoji, style: const TextStyle(fontSize: 24)),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w900,
+                          color: color,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          trailing,
+        ],
+      ),
+    );
+  }
+
+  void _showLanguageDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
+          title: const Text(
+            '🌍 Chọn Ngôn Ngữ',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+              color: Color(0xFF0F172A),
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildLanguageOption('🇻🇳 Tiếng Việt'),
+              const SizedBox(height: 8),
+              _buildLanguageOption('🇬🇧 English'),
+              const SizedBox(height: 8),
+              _buildLanguageOption('🇨🇳 中文'),
+              const SizedBox(height: 8),
+              _buildLanguageOption('🇯🇵 日本語'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                'Hủy',
+                style: TextStyle(color: Color(0xFF64748B)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLanguageOption(String language) {
+    final cleanLang =
+    language.replaceAll(RegExp(r'^[^A-Za-z]*'), '');
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _language = cleanLang;
+        });
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF8FAFC),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+        ),
+        child: Row(
+          children: [
+            Text(language,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                )),
+            const Spacer(),
+            if (_language == cleanLang)
+              const Icon(Icons.check_circle,
+                  color: Color(0xFF10B981)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showDeleteConfirmDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
+          title: const Text(
+            '⚠️ Xác nhận xóa',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 16,
+              color: Color(0xFFEF4444),
+            ),
+          ),
+          content: const Text(
+            'Bạn có chắc chắn muốn xóa tất cả tiến độ học tập và tích lũy sao của bé không?\n\nHành động này không thể hoàn tác!',
+            style: TextStyle(fontSize: 14),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                'Hủy',
+                style: TextStyle(
+                  color: Color(0xFF64748B),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                        '✅ Đã xóa toàn bộ lịch sử tiến độ thành công!'),
+                    backgroundColor: Color(0xFF10B981),
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              },
+              child: const Text(
+                'Đồng ý xóa',
+                style: TextStyle(
+                  color: Color(0xFFEF4444),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

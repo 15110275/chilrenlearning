@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-/// Flutter Widget mô phỏng màn hình: PARENT GATE
-/// Hỗ trợ responsive toàn diện cho cả thiết bị di động (Mobile) và Máy tính bảng (Tablet)
-/// Phục vụ hiển thị trên Android Studio IDE & ứng dụng đa nền tảng Flutter.
+import 'dart:math';
 
 class S3parentgateScreen extends StatefulWidget {
   const S3parentgateScreen({super.key});
@@ -11,152 +8,390 @@ class S3parentgateScreen extends StatefulWidget {
   State<S3parentgateScreen> createState() => _S3parentgateScreenState();
 }
 
-class _S3parentgateScreenState extends State<S3parentgateScreen> {
+class _S3parentgateScreenState extends State<S3parentgateScreen> with TickerProviderStateMixin {
 
-  final int _num1 = 5;
-  final int _num2 = 3;
+  final Random _random = Random();
+
+  late int _num1;
+  late int _num2;
+
   String _inputAnswer = '';
   String _errorMsg = '';
 
-  @override
-  Widget build(BuildContext context) {
-    // Xác định thiết bị bằng Width (Tablet > 600)
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final bool isTablet = screenWidth > 600;
+  late AnimationController _glowController;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF4F9FD), // Màu nền canvas nhẹ
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Layout thích ứng động dựa trên kích thước khung màn hình của Android Studio
-            return Padding(
-              padding: EdgeInsets.all(isTablet ? 32.0 : 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.security, size: 60, color: Color(0xFF4F46E5)),
-                  const SizedBox(height: 16),
-                  Text(
-                    'CỔNG PHỤ HUYNH',
-                    style: TextStyle(
-                      fontSize: isTablet ? 24 : 18,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF0F172A),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Vui lòng làm phép toán dưới đây để xác nhận bạn là phụ huynh.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: isTablet ? 14 : 12,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  // Phép toán
-                  Text(
-                    '$_num1 + $_num2 = ?',
-                    style: TextStyle(
-                      fontSize: isTablet ? 48 : 36,
-                      fontWeight: FontWeight.w800,
-                      color: const Color(0xFF4F46E5),
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  // Khung hiển thị câu trả lời
-                  Container(
-                    width: 150,
-                    height: 60,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: const Color(0xFFE2E8F0), width: 2),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      _inputAnswer.isEmpty ? '?' : _inputAnswer,
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
-                    ),
-                  ),
-                  if (_errorMsg.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Text(_errorMsg, style: const TextStyle(color: Colors.red, fontSize: 12, fontWeight: FontWeight.bold)),
-                  ],
-                  const SizedBox(height: 24),
-                  // Bàn phím số thiết kế to, thân thiện
-                  GridView.count(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 3,
-                    childAspectRatio: 1.5,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    children: [
-                      ...List.generate(9, (index) {
-                        final num = index + 1;
-                        return ElevatedButton(
-                          onPressed: () => setState(() => _inputAnswer += num.toString()),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: const Color(0xFF0F172A),
-                            side: const BorderSide(color: Color(0xFFE2E8F0)),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          ),
-                          child: Text('$num', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        );
-                      }),
-                      ElevatedButton(
-                        onPressed: () => setState(() => _inputAnswer = ''),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFEE2E2),
-                          foregroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                        child: const Text('C', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => setState(() => _inputAnswer += '0'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF0F172A),
-                          side: const BorderSide(color: Color(0xFFE2E8F0)),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                        child: const Text('0', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_inputAnswer == (_num1 + _num2).toString()) {
-                            setState(() => _errorMsg = 'Xác thực thành công!');
-                            Future.delayed(const Duration(seconds: 1), () {
-                              Navigator.pushReplacementNamed(context, '/s17_parent_dashboard');
-                            });
-                          } else {
-                            setState(() {
-                              _errorMsg = 'Sai rồi ba mẹ ơi!';
-                              _inputAnswer = '';
-                            });
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFECFDF5),
-                          foregroundColor: const Color(0xFF10B981),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        ),
-                        child: const Text('✓', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            );
-          },
+  @override
+  void initState() {
+    super.initState();
+
+    _generateQuestion();
+
+    _glowController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1800),
+    )..repeat(reverse: true);
+
+  }
+
+  void _generateQuestion() {
+    _num1 = _random.nextInt(8) + 2; // 2 -> 9
+    _num2 = _random.nextInt(8) + 1; // 1 -> 8
+  }
+
+  @override
+  void dispose() {
+    _glowController.dispose();
+    super.dispose();
+  }
+
+  void _checkAnswer() {
+    if (_inputAnswer == (_num1 + _num2).toString()) {
+      setState(() {
+        _errorMsg = '✅ Xác thực thành công!';
+      });
+
+      Future.delayed(const Duration(milliseconds: 1200), () {
+        if (mounted) {
+          Navigator.pushReplacementNamed(
+            context,
+            '/s17_parent_dashboard',
+          );
+        }
+      });
+    } else {
+      setState(() {
+        _errorMsg = '❌ Sai rồi, thử lại nhé!';
+        _inputAnswer = '';
+
+        _generateQuestion();
+      });
+    }
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _generateQuestion();
+  }
+
+  Widget buildKey(String value,
+      {Color? bgColor,
+        Color? textColor,
+        VoidCallback? onTap}) {
+    return ElevatedButton(
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        elevation: 2,
+        backgroundColor: bgColor ?? Colors.white,
+        foregroundColor: textColor ?? const Color(0xFF0F172A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+      ),
+      child: Text(
+        value,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
         ),
       ),
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth =
+        MediaQuery.of(context).size.width;
+    final isTablet = screenWidth > 600;
+
+    final mathSize = isTablet
+        ? 180.0
+        : MediaQuery.of(context).size.width * 0.28;
+
+
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFE0F2FE),
+              Color(0xFFF8FAFC),
+              Color(0xFFFFFBEB),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(
+                isTablet ? 32 : 20,
+              ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: isTablet ? 550 : 420,
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(
+                    isTablet ? 32 : 24,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                    BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blue
+                            .withOpacity(0.08),
+                        blurRadius: 30,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      AnimatedBuilder(
+                        animation: _glowController,
+                        builder: (context, child) {
+                          return Container(
+                            width: 90,
+                            height: 90,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color(
+                                0xFFEEF2FF,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(
+                                    0xFF4F46E5,
+                                  ).withOpacity(
+                                    0.2 +
+                                        (_glowController
+                                            .value *
+                                            0.3),
+                                  ),
+                                  blurRadius:
+                                  25 +
+                                      (_glowController
+                                          .value *
+                                          20),
+                                  spreadRadius:
+                                  2 +
+                                      (_glowController
+                                          .value *
+                                          4),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.security,
+                              size: 50,
+                              color:
+                              Color(0xFF4F46E5),
+                            ),
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      Text(
+                        "CỔNG PHỤ HUYNH",
+                        style: TextStyle(
+                          fontSize:
+                          isTablet ? 28 : 22,
+                          fontWeight:
+                          FontWeight.w900,
+                          color:
+                          const Color(0xFF0F172A),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "Giải phép tính bên dưới để xác nhận bạn là phụ huynh.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize:
+                          isTablet ? 15 : 13,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      Container(
+                        width: mathSize,
+                        height: mathSize,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient:
+                          const LinearGradient(
+                            colors: [
+                              Color(0xFF6366F1),
+                              Color(0xFF8B5CF6),
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                              Colors.indigo
+                                  .withOpacity(
+                                  0.3),
+                              blurRadius: 20,
+                              offset:
+                              const Offset(
+                                  0, 8),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "$_num1 + $_num2",
+                            style: TextStyle(
+                              fontSize:
+                              isTablet
+                                  ? 48
+                                  : 38,
+                              color: Colors.white,
+                              fontWeight:
+                              FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Container(
+                        width: isTablet ? 220 : 160,
+                        height: isTablet ? 80 : 65,
+                        alignment:
+                        Alignment.center,
+                        decoration: BoxDecoration(
+                          color:
+                          const Color(0xFFF8FAFC),
+                          borderRadius:
+                          BorderRadius.circular(
+                              20),
+                          border: Border.all(
+                            color: const Color(
+                              0xFFE2E8F0,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          _inputAnswer.isEmpty
+                              ? "?"
+                              : _inputAnswer,
+                          style:
+                          const TextStyle(
+                            fontSize: 34,
+                            fontWeight:
+                            FontWeight.w900,
+                          ),
+                        ),
+                      ),
+
+                      if (_errorMsg.isNotEmpty)
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(
+                            top: 12,
+                          ),
+                          child: Text(
+                            _errorMsg,
+                            style: TextStyle(
+                              color: _errorMsg
+                                  .contains(
+                                  "thành công")
+                                  ? Colors.green
+                                  : Colors.red,
+                              fontWeight:
+                              FontWeight.bold,
+                            ),
+                          ),
+                        ),
+
+                      const SizedBox(height: 30),
+
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics:
+                        const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: isTablet ? 1.8 : 1.25,
+                        children: [
+                          ...List.generate(
+                            9,
+                                (index) {
+                              final num =
+                                  index + 1;
+
+                              return buildKey(
+                                "$num",
+                                onTap: () {
+                                  setState(() {
+                                    _inputAnswer +=
+                                    "$num";
+                                  });
+                                },
+                              );
+                            },
+                          ),
+
+                          buildKey(
+                            "C",
+                            bgColor:
+                            const Color(
+                              0xFFFEE2E2,
+                            ),
+                            textColor:
+                            Colors.red,
+                            onTap: () {
+                              setState(() {
+                                _inputAnswer =
+                                '';
+                              });
+                            },
+                          ),
+
+                          buildKey(
+                            "0",
+                            onTap: () {
+                              setState(() {
+                                _inputAnswer +=
+                                '0';
+                              });
+                            },
+                          ),
+
+                          buildKey(
+                            "✓",
+                            bgColor:
+                            const Color(
+                              0xFFDCFCE7,
+                            ),
+                            textColor:
+                            const Color(
+                              0xFF10B981,
+                            ),
+                            onTap: _checkAnswer,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
