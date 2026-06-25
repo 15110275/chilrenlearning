@@ -206,7 +206,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
             // builder = const DummyScreenPlaceholder(id: 15, name: 'Profiles Accounts');
             break;
 
-          case '/s16_report':
+          case '/s16_parent_report':
             // Khi s16 đã sẵn sàng:
             builder = const S16reportScreen();
             // builder = const DummyScreenPlaceholder(id: 16, name: 'Learning Progress');
@@ -236,7 +236,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
             // builder = const DummyScreenPlaceholder(id: 20, name: 'Sound & System Reset');
             break;
 
-          case '/s21_paywall':
+          case '/s21_subscription_paywall':
             // Khi s21 đã sẵn sàng:
             builder = const S21paywallScreen();
             // builder = const DummyScreenPlaceholder(id: 21, name: 'VIP Membership Access');
@@ -984,7 +984,7 @@ class DevQuickNavigatorDrawer extends StatelessWidget {
         'phase': 'Phụ Huynh',
       },
       {
-        'route': '/s16_report',
+        'route': '/s16_parent_report',
         'name': '16. Learning Progress',
         'icon': '📈',
         'phase': 'Phụ Huynh',
@@ -1014,7 +1014,7 @@ class DevQuickNavigatorDrawer extends StatelessWidget {
         'phase': 'Phụ Huynh',
       },
       {
-        'route': '/s21_paywall',
+        'route': '/s21_subscription_paywall',
         'name': '21. VIP Membership Access',
         'icon': '👑',
         'phase': 'Phụ Huynh',

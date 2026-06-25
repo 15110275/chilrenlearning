@@ -214,7 +214,7 @@ class _S17parentdashboardState extends State<S17parentdashboardScreen> {
                           Icons.bar_chart_rounded,
                           'Báo cáo',
                           () {
-                            Navigator.pushNamed(context, '/s16_report');
+                            Navigator.pushNamed(context, '/s16_parent_report');
                           },
                         ),
                         _buildBottomNavItem(
