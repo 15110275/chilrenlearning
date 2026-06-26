@@ -11,8 +11,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   int _selectedNav = 0;
 
   // Animations
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
       'bg': const Color(0xFFF0F9FF),
       'emoji': '📖',
       'route': '/s5_module',
+      'topic': 'alphabet',
     },
     {
       'display': '123',
@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
       'bg': const Color(0xFFFFFBEB),
       'emoji': '🔢',
       'route': '/s5_module',
+      'topic': 'numbers',
     },
     {
       'display': '🦁',
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen>
       'bg': const Color(0xFFECFDF5),
       'emoji': '🐾',
       'route': '/s5_module',
+      'topic': 'animals',
     },
     {
       'display': '🎨',
@@ -73,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen>
       'bg': const Color(0xFFFDF2F8),
       'emoji': '🌈',
       'route': '/s5_module',
+      'topic': 'colors',
     },
   ];
 
@@ -82,43 +85,62 @@ class _HomeScreenState extends State<HomeScreen>
 
     // Float mascot
     _floatCtrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2200))
-      ..repeat(reverse: true);
-    _floatAnim = Tween<double>(begin: -5, end: 5).animate(
-        CurvedAnimation(parent: _floatCtrl, curve: Curves.easeInOut));
+      vsync: this,
+      duration: const Duration(milliseconds: 2200),
+    )..repeat(reverse: true);
+    _floatAnim = Tween<double>(
+      begin: -5,
+      end: 5,
+    ).animate(CurvedAnimation(parent: _floatCtrl, curve: Curves.easeInOut));
 
     // Particles ambient
     _particleCtrl = AnimationController(
-        vsync: this, duration: const Duration(seconds: 6))
-      ..repeat();
+      vsync: this,
+      duration: const Duration(seconds: 6),
+    )..repeat();
 
     // Progress bar animate on enter
     _progressCtrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1200));
-    _progressAnim = CurvedAnimation(parent: _progressCtrl, curve: Curves.easeOut);
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+    _progressAnim = CurvedAnimation(
+      parent: _progressCtrl,
+      curve: Curves.easeOut,
+    );
     _progressCtrl.forward();
 
     // Cards stagger bounce-in
     _cardCtrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     _cardCtrl.forward();
 
     // Star pulse
     _starCtrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 900))
-      ..repeat(reverse: true);
-    _starAnim = Tween<double>(begin: 1.0, end: 1.2).animate(
-        CurvedAnimation(parent: _starCtrl, curve: Curves.easeInOut));
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    )..repeat(reverse: true);
+    _starAnim = Tween<double>(
+      begin: 1.0,
+      end: 1.2,
+    ).animate(CurvedAnimation(parent: _starCtrl, curve: Curves.easeInOut));
 
     // Generate floating emojis
-    _floatingEmojis.addAll(List.generate(10, (i) => _FloatingEmoji(
-      emoji: ['⭐', '✨', '🌟', '💫', '📚', '🎯', '🏆', '🎉'][i % 8],
-      x: _rng.nextDouble(),
-      y: _rng.nextDouble() * 0.5,
-      size: 12 + _rng.nextDouble() * 10,
-      speed: 0.2 + _rng.nextDouble() * 0.3,
-      phase: _rng.nextDouble(),
-    )));
+    _floatingEmojis.addAll(
+      List.generate(
+        10,
+        (i) => _FloatingEmoji(
+          emoji: ['⭐', '✨', '🌟', '💫', '📚', '🎯', '🏆', '🎉'][i % 8],
+          x: _rng.nextDouble(),
+          y: _rng.nextDouble() * 0.5,
+          size: 12 + _rng.nextDouble() * 10,
+          speed: 0.2 + _rng.nextDouble() * 0.3,
+          phase: _rng.nextDouble(),
+        ),
+      ),
+    );
   }
 
   @override
@@ -147,7 +169,9 @@ class _HomeScreenState extends State<HomeScreen>
             // Main content
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: isTablet ? 24 : 14, vertical: 8),
+                horizontal: isTablet ? 24 : 14,
+                vertical: 8,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -176,8 +200,11 @@ class _HomeScreenState extends State<HomeScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05),
-              blurRadius: 10, offset: const Offset(0, 3)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       child: Row(
@@ -185,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen>
           // Mascot float
           AnimatedBuilder(
             animation: _floatAnim,
-            builder: (_, __) => Transform.translate(
+            builder: (_, _) => Transform.translate(
               offset: Offset(0, _floatAnim.value),
               child: Container(
                 width: 44,
@@ -200,12 +227,15 @@ class _HomeScreenState extends State<HomeScreen>
                   border: Border.all(color: Colors.white, width: 2.5),
                   boxShadow: [
                     BoxShadow(
-                        color: const Color(0xFFFBBF24).withOpacity(0.4),
-                        blurRadius: 10,
-                        offset: const Offset(0, 3)),
+                      color: const Color(0xFFFBBF24).withValues(alpha: 0.4),
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
                   ],
                 ),
-                child: const Center(child: Text('🦁', style: TextStyle(fontSize: 22))),
+                child: const Center(
+                  child: Text('🦁', style: TextStyle(fontSize: 22)),
+                ),
               ),
             ),
           ),
@@ -213,20 +243,33 @@ class _HomeScreenState extends State<HomeScreen>
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Bin Bin',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900,
-                      color: Color(0xFF1E293B))),
+              const Text(
+                'Bin Bin',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 7,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFEF3C7),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text('Level 2 🎖️',
-                        style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800,
-                            color: Color(0xFFD97706))),
+                    child: const Text(
+                      'Level 2 🎖️',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFFD97706),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -236,26 +279,35 @@ class _HomeScreenState extends State<HomeScreen>
           // Stars badge với pulse
           AnimatedBuilder(
             animation: _starAnim,
-            builder: (_, child) => Transform.scale(scale: _starAnim.value, child: child),
+            builder: (_, child) =>
+                Transform.scale(scale: _starAnim.value, child: child),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                    colors: [Color(0xFFFEF9C3), Color(0xFFFEF08A)]),
+                  colors: [Color(0xFFFEF9C3), Color(0xFFFEF08A)],
+                ),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: const Color(0xFFFDE047), width: 1.5),
                 boxShadow: [
-                  BoxShadow(color: const Color(0xFFFBBF24).withOpacity(0.3),
-                      blurRadius: 8),
+                  BoxShadow(
+                    color: const Color(0xFFFBBF24).withValues(alpha: 0.3),
+                    blurRadius: 8,
+                  ),
                 ],
               ),
               child: const Row(
                 children: [
                   Text('⭐', style: TextStyle(fontSize: 14)),
                   SizedBox(width: 4),
-                  Text('120',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900,
-                          color: Color(0xFFD97706))),
+                  Text(
+                    '120',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFFD97706),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -271,25 +323,34 @@ class _HomeScreenState extends State<HomeScreen>
   Widget _buildStreakBadge() {
     return AnimatedBuilder(
       animation: _floatAnim,
-      builder: (_, __) => Transform.translate(
+      builder: (_, _) => Transform.translate(
         offset: Offset(0, _floatAnim.value * 0.5),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-                colors: [Color(0xFFFB923C), Color(0xFFEF4444)]),
+              colors: [Color(0xFFFB923C), Color(0xFFEF4444)],
+            ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
-              BoxShadow(color: const Color(0xFFF97316).withOpacity(0.4),
-                  blurRadius: 8),
+              BoxShadow(
+                color: const Color(0xFFF97316).withValues(alpha: 0.4),
+                blurRadius: 8,
+              ),
             ],
           ),
           child: const Row(
             children: [
               Text('🔥', style: TextStyle(fontSize: 13)),
               SizedBox(width: 3),
-              Text('7', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900,
-                  color: Colors.white)),
+              Text(
+                '7',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
         ),
@@ -305,8 +366,11 @@ class _HomeScreenState extends State<HomeScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.04),
-              blurRadius: 8, offset: const Offset(0, 2)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
         ],
       ),
       child: Column(
@@ -319,21 +383,34 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   Text('🎯', style: TextStyle(fontSize: 14)),
                   SizedBox(width: 6),
-                  Text('Mục tiêu hôm nay: 5 bài',
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800,
-                          color: Color(0xFF334155))),
+                  Text(
+                    'Mục tiêu hôm nay: 5 bài',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF334155),
+                    ),
+                  ),
                 ],
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF7ED),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFFED7AA)),
                 ),
-                child: const Text('2 / 5',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900,
-                        color: Color(0xFFF97316))),
+                child: const Text(
+                  '2 / 5',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFFF97316),
+                  ),
+                ),
               ),
             ],
           ),
@@ -341,7 +418,7 @@ class _HomeScreenState extends State<HomeScreen>
           // Animated progress bar
           AnimatedBuilder(
             animation: _progressAnim,
-            builder: (_, __) {
+            builder: (_, _) {
               return Stack(
                 children: [
                   // Background track
@@ -359,11 +436,16 @@ class _HomeScreenState extends State<HomeScreen>
                       height: 12,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                            colors: [Color(0xFFFB923C), Color(0xFFF97316)]),
+                          colors: [Color(0xFFFB923C), Color(0xFFF97316)],
+                        ),
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
-                          BoxShadow(color: const Color(0xFFF97316).withOpacity(0.4),
-                              blurRadius: 6),
+                          BoxShadow(
+                            color: const Color(
+                              0xFFF97316,
+                            ).withValues(alpha: 0.4),
+                            blurRadius: 6,
+                          ),
                         ],
                       ),
                     ),
@@ -375,7 +457,7 @@ class _HomeScreenState extends State<HomeScreen>
                       height: 5,
                       margin: const EdgeInsets.only(top: 2, left: 4, right: 4),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.35),
+                        color: Colors.white.withValues(alpha: 0.35),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -399,31 +481,49 @@ class _HomeScreenState extends State<HomeScreen>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: done
-                          ? (today ? const Color(0xFFF97316) : const Color(0xFFFED7AA))
+                          ? (today
+                                ? const Color(0xFFF97316)
+                                : const Color(0xFFFED7AA))
                           : const Color(0xFFF1F5F9),
                       border: today
-                          ? Border.all(color: const Color(0xFFF97316), width: 2.5)
+                          ? Border.all(
+                              color: const Color(0xFFF97316),
+                              width: 2.5,
+                            )
                           : null,
                       boxShadow: done
-                          ? [BoxShadow(
-                          color: const Color(0xFFF97316).withOpacity(0.25),
-                          blurRadius: 6)]
+                          ? [
+                              BoxShadow(
+                                color: const Color(
+                                  0xFFF97316,
+                                ).withValues(alpha: 0.25),
+                                blurRadius: 6,
+                              ),
+                            ]
                           : [],
                     ),
                     child: Center(
-                      child: Text(done ? '✓' : '',
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w900,
-                              color: today ? Colors.white : const Color(0xFFF97316))),
+                      child: Text(
+                        done ? '✓' : '',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w900,
+                          color: today ? Colors.white : const Color(0xFFF97316),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text(['T2','T3','T4','T5','T6','T7','CN'][i],
-                      style: TextStyle(
-                          fontSize: 8,
-                          fontWeight: FontWeight.w700,
-                          color: done ? const Color(0xFFF97316) : const Color(0xFFCBD5E1))),
+                  Text(
+                    ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'][i],
+                    style: TextStyle(
+                      fontSize: 8,
+                      fontWeight: FontWeight.w700,
+                      color: done
+                          ? const Color(0xFFF97316)
+                          : const Color(0xFFCBD5E1),
+                    ),
+                  ),
                 ],
               );
             }),
@@ -445,9 +545,15 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
         const SizedBox(width: 8),
-        Text(text,
-            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w900,
-                color: Color(0xFF64748B), letterSpacing: 1.0)),
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w900,
+            color: Color(0xFF64748B),
+            letterSpacing: 1.0,
+          ),
+        ),
       ],
     );
   }
@@ -469,7 +575,10 @@ class _HomeScreenState extends State<HomeScreen>
         return AnimatedBuilder(
           animation: _cardCtrl,
           builder: (_, child) {
-            final t = (((_cardCtrl.value - delay) / (1 - delay)).clamp(0.0, 1.0));
+            final t = (((_cardCtrl.value - delay) / (1 - delay)).clamp(
+              0.0,
+              1.0,
+            ));
             final curve = Curves.elasticOut.transform(t);
             return Transform.scale(
               scale: curve,
@@ -489,24 +598,29 @@ class _HomeScreenState extends State<HomeScreen>
     final bool done = progress >= 1.0;
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, cat['route'] as String),
+      onTap: () => Navigator.pushNamed(
+        context,
+        cat['route'] as String,
+        arguments: cat['topic'] as String,
+      ),
       child: AnimatedBuilder(
         animation: _particleCtrl,
-        builder: (_, __) {
-          final shimmer = math.sin(_particleCtrl.value * math.pi * 2 + i) * 0.5 + 0.5;
+        builder: (_, _) {
+          final shimmer =
+              math.sin(_particleCtrl.value * math.pi * 2 + i) * 0.5 + 0.5;
           return Container(
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(22),
               border: Border.all(
                 color: done
-                    ? accent.withOpacity(0.5 + shimmer * 0.3)
+                    ? accent.withValues(alpha: 0.5 + shimmer * 0.3)
                     : (cat['light'] as Color),
                 width: done ? 2.5 : 2,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: accent.withOpacity(0.12 + shimmer * 0.05),
+                  color: accent.withValues(alpha: 0.12 + shimmer * 0.05),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -529,15 +643,18 @@ class _HomeScreenState extends State<HomeScreen>
                           color: (cat['light'] as Color),
                           boxShadow: [
                             BoxShadow(
-                                color: accent.withOpacity(0.2),
-                                blurRadius: 10),
+                              color: accent.withValues(alpha: 0.2),
+                              blurRadius: 10,
+                            ),
                           ],
                         ),
                         child: Center(
                           child: Text(
                             cat['display'] as String,
                             style: TextStyle(
-                              fontSize: (cat['display'] as String).length > 1 ? 20 : 30,
+                              fontSize: (cat['display'] as String).length > 1
+                                  ? 20
+                                  : 30,
                               fontWeight: FontWeight.w900,
                               color: accent,
                             ),
@@ -554,27 +671,35 @@ class _HomeScreenState extends State<HomeScreen>
                             border: Border.all(color: Colors.white, width: 2),
                           ),
                           child: const Center(
-                            child: Text('✓',
-                                style: TextStyle(fontSize: 10,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white)),
+                            child: Text(
+                              '✓',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(cat['title'] as String,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 11, fontWeight: FontWeight.w800,
-                          color: Color(0xFF334155))),
+                  Text(
+                    cat['title'] as String,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF334155),
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   // Mini progress bar
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: AnimatedBuilder(
                       animation: _progressAnim,
-                      builder: (_, __) => LinearProgressIndicator(
+                      builder: (_, _) => LinearProgressIndicator(
                         value: progress * _progressAnim.value,
                         minHeight: 5,
                         backgroundColor: (cat['light'] as Color),
@@ -585,7 +710,10 @@ class _HomeScreenState extends State<HomeScreen>
                   const SizedBox(height: 5),
                   // Badge
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: done ? accent : (cat['bg'] as Color),
                       borderRadius: BorderRadius.circular(10),
@@ -612,13 +740,16 @@ class _HomeScreenState extends State<HomeScreen>
   Widget _buildAmbientParticles() {
     return AnimatedBuilder(
       animation: _particleCtrl,
-      builder: (_, __) => LayoutBuilder(
+      builder: (_, _) => LayoutBuilder(
         builder: (ctx, box) => Stack(
           children: _floatingEmojis.map((p) {
             final t = (_particleCtrl.value * p.speed + p.phase) % 1.0;
             final dy = math.sin(t * math.pi * 2) * 14;
             final dx = math.cos(t * math.pi * 1.5) * 8;
-            final opacity = (0.15 + math.sin(t * math.pi) * 0.15).clamp(0.05, 0.3);
+            final opacity = (0.15 + math.sin(t * math.pi) * 0.15).clamp(
+              0.05,
+              0.3,
+            );
             return Positioned(
               left: p.x * box.maxWidth + dx,
               top: p.y * (box.maxHeight > 0 ? box.maxHeight : 700) + dy,
@@ -649,8 +780,11 @@ class _HomeScreenState extends State<HomeScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.06),
-              blurRadius: 10, offset: const Offset(0, -2)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
         ],
       ),
       child: Row(
@@ -669,7 +803,7 @@ class _HomeScreenState extends State<HomeScreen>
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: active
-                    ? const Color(0xFF6366F1).withOpacity(0.12)
+                    ? const Color(0xFF6366F1).withValues(alpha: 0.12)
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(14),
               ),
@@ -679,17 +813,22 @@ class _HomeScreenState extends State<HomeScreen>
                   AnimatedScale(
                     scale: active ? 1.2 : 1.0,
                     duration: const Duration(milliseconds: 200),
-                    child: Text(items[i]['emoji']!,
-                        style: const TextStyle(fontSize: 20)),
+                    child: Text(
+                      items[i]['emoji']!,
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
                   const SizedBox(height: 2),
-                  Text(items[i]['label']!,
-                      style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w800,
-                          color: active
-                              ? const Color(0xFF6366F1)
-                              : const Color(0xFF94A3B8))),
+                  Text(
+                    items[i]['label']!,
+                    style: TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w800,
+                      color: active
+                          ? const Color(0xFF6366F1)
+                          : const Color(0xFF94A3B8),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -704,7 +843,11 @@ class _FloatingEmoji {
   final String emoji;
   final double x, y, size, speed, phase;
   const _FloatingEmoji({
-    required this.emoji, required this.x, required this.y,
-    required this.size, required this.speed, required this.phase,
+    required this.emoji,
+    required this.x,
+    required this.y,
+    required this.size,
+    required this.speed,
+    required this.phase,
   });
 }

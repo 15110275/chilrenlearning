@@ -45,8 +45,8 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-    DeviceOrientation.landscapeLeft,      // ← THÊM
-    DeviceOrientation.landscapeRight,     // ← THÊM
+    DeviceOrientation.landscapeLeft, // ← THÊM
+    DeviceOrientation.landscapeRight, // ← THÊM
   ]);
 
   runApp(
@@ -83,8 +83,6 @@ class BeHocTiengAnhApp extends StatelessWidget {
           // Hổ phách rực rỡ vui nhộn
           tertiary: const Color(0xFF10B981),
           // Xanh lá cây năng lượng
-          background: const Color(0xFFF4F9FD),
-          // Nền canvas dịu mắt
           surface: Colors.white,
         ),
 
@@ -125,8 +123,7 @@ class BeHocTiengAnhApp extends StatelessWidget {
 
         switch (settings.name) {
           case '/':
-            builder =
-                const SplashScreen(); // Luồng Splash tự động chuyển tiếp
+            builder = const SplashScreen(); // Luồng Splash tự động chuyển tiếp
             break;
 
           case '/s1_splash':
@@ -155,13 +152,26 @@ class BeHocTiengAnhApp extends StatelessWidget {
 
           case '/s5_module':
             // Khi s5 đã sẵn sàng:
-            builder = const S5moduleScreen();
+            final topic = settings.arguments is String
+                ? settings.arguments as String
+                : 'alphabet';
+            builder = S5moduleScreen(topic: topic);
             // builder = const DummyScreenPlaceholder(id: 5, name: 'Grid Lessons List');
             break;
 
           case '/s6_lesson':
             // Khi s6 đã sẵn sàng:
-            builder = const S6lessonScreen();
+            final args = settings.arguments;
+            final initialLessonIndex = args is Map
+                ? (args['index'] is int ? args['index'] as int : 0)
+                : (args is int ? args : 0);
+            final topic = args is Map && args['topic'] is String
+                ? args['topic'] as String
+                : 'alphabet';
+            builder = S6lessonScreen(
+              initialLessonIndex: initialLessonIndex,
+              topic: topic,
+            );
             // builder = const DummyScreenPlaceholder(id: 6, name: 'Flashcard IPA Audio');
             break;
 
@@ -373,7 +383,7 @@ class _MainResponsiveNavigationState extends State<MainResponsiveNavigation> {
     final bool isTablet = screenWidth > 600; // Ngưỡng điểm gãy chuẩn của Tablet
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
 
       // Thanh ứng dụng tích hợp nút bật Cẩm Nang Điều Hướng Nhanh
       appBar: AppBar(
@@ -1122,7 +1132,9 @@ class DevQuickNavigatorDrawer extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: _getPhaseColor(item['phase']).withValues(alpha: 0.1),
+                        color: _getPhaseColor(
+                          item['phase'],
+                        ).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -1228,7 +1240,9 @@ class DummyScreenPlaceholder extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.withValues(alpha: 0.15)),
+                  border: Border.all(
+                    color: Colors.grey.withValues(alpha: 0.15),
+                  ),
                 ),
                 child: Column(
                   children: [

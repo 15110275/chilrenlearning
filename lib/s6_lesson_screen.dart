@@ -1,9 +1,18 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class S6lessonScreen extends StatefulWidget {
-  const S6lessonScreen({super.key});
+  const S6lessonScreen({
+    super.key,
+    this.initialLessonIndex = 0,
+    this.topic = 'alphabet',
+  });
+
+  final int initialLessonIndex;
+  final String topic;
 
   @override
   State<S6lessonScreen> createState() => _S6lessonScreenState();
@@ -47,7 +56,7 @@ class _GameOption {
 
 class _S6lessonScreenState extends State<S6lessonScreen>
     with TickerProviderStateMixin {
-  final List<_LessonItem> _lessons = const [
+  static const List<_LessonItem> _alphabetLessons = [
     _LessonItem(
       letter: 'A',
       lowercase: 'a',
@@ -66,15 +75,15 @@ class _S6lessonScreenState extends State<S6lessonScreen>
     _LessonItem(
       letter: 'B',
       lowercase: 'b',
-      word: 'Ball',
-      phonetic: '/bɔːl/',
-      translation: 'Quả bóng',
-      emoji: '⚽',
+      word: 'Banana',
+      phonetic: '/bə-na-nə/',
+      translation: 'Quả chuối',
+      emoji: '🍌',
       color: Color(0xFF2563EB),
       bg: Color(0xFFEFF6FF),
       options: [
-        _GameOption(emoji: '🍌', word: 'Banana', isCorrect: false),
-        _GameOption(emoji: '⚽', word: 'Ball', isCorrect: true),
+        _GameOption(emoji: '🍌', word: 'Banana', isCorrect: true),
+        _GameOption(emoji: '⚽', word: 'Ball', isCorrect: false),
         _GameOption(emoji: '🐱', word: 'Cat', isCorrect: false),
       ],
     ),
@@ -123,15 +132,750 @@ class _S6lessonScreenState extends State<S6lessonScreen>
         _GameOption(emoji: '🍌', word: 'Banana', isCorrect: false),
       ],
     ),
+    _LessonItem(
+      letter: 'F',
+      lowercase: 'f',
+      word: 'Fish',
+      phonetic: '/fɪʃ/',
+      translation: 'Con cá',
+      emoji: '🐟',
+      color: Color(0xFF06B6D4),
+      bg: Color(0xFFECFEFF),
+      options: [
+        _GameOption(emoji: '🐟', word: 'Fish', isCorrect: true),
+        _GameOption(emoji: '🐸', word: 'Frog', isCorrect: false),
+        _GameOption(emoji: '🍇', word: 'Grape', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'G',
+      lowercase: 'g',
+      word: 'Grape',
+      phonetic: '/greɪp/',
+      translation: 'Quả nho',
+      emoji: '🍇',
+      color: Color(0xFF7C3AED),
+      bg: Color(0xFFF5F3FF),
+      options: [
+        _GameOption(emoji: '🍇', word: 'Grape', isCorrect: true),
+        _GameOption(emoji: '🐐', word: 'Goat', isCorrect: false),
+        _GameOption(emoji: '🏠', word: 'House', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'H',
+      lowercase: 'h',
+      word: 'House',
+      phonetic: '/haʊs/',
+      translation: 'Ngôi nhà',
+      emoji: '🏠',
+      color: Color(0xFF0EA5E9),
+      bg: Color(0xFFF0F9FF),
+      options: [
+        _GameOption(emoji: '🏠', word: 'House', isCorrect: true),
+        _GameOption(emoji: '🎩', word: 'Hat', isCorrect: false),
+        _GameOption(emoji: '🍦', word: 'Ice cream', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'I',
+      lowercase: 'i',
+      word: 'Ice cream',
+      phonetic: '/aɪs kriːm/',
+      translation: 'Kem',
+      emoji: '🍦',
+      color: Color(0xFFEC4899),
+      bg: Color(0xFFFDF2F8),
+      options: [
+        _GameOption(emoji: '🍦', word: 'Ice cream', isCorrect: true),
+        _GameOption(emoji: '🦎', word: 'Iguana', isCorrect: false),
+        _GameOption(emoji: '🧃', word: 'Juice', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'J',
+      lowercase: 'j',
+      word: 'Juice',
+      phonetic: '/dʒuːs/',
+      translation: 'Nước ép',
+      emoji: '🧃',
+      color: Color(0xFFF59E0B),
+      bg: Color(0xFFFFFBEB),
+      options: [
+        _GameOption(emoji: '🧃', word: 'Juice', isCorrect: true),
+        _GameOption(emoji: '🫙', word: 'Jar', isCorrect: false),
+        _GameOption(emoji: '🔑', word: 'Key', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'K',
+      lowercase: 'k',
+      word: 'Key',
+      phonetic: '/kiː/',
+      translation: 'Chìa khóa',
+      emoji: '🔑',
+      color: Color(0xFFEAB308),
+      bg: Color(0xFFFEFCE8),
+      options: [
+        _GameOption(emoji: '🔑', word: 'Key', isCorrect: true),
+        _GameOption(emoji: '🪁', word: 'Kite', isCorrect: false),
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'L',
+      lowercase: 'l',
+      word: 'Lion',
+      phonetic: '/laɪ-ən/',
+      translation: 'Sư tử',
+      emoji: '🦁',
+      color: Color(0xFFF97316),
+      bg: Color(0xFFFFF7ED),
+      options: [
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: true),
+        _GameOption(emoji: '🍋', word: 'Lemon', isCorrect: false),
+        _GameOption(emoji: '🌙', word: 'Moon', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'M',
+      lowercase: 'm',
+      word: 'Moon',
+      phonetic: '/muːn/',
+      translation: 'Mặt trăng',
+      emoji: '🌙',
+      color: Color(0xFF6366F1),
+      bg: Color(0xFFEEF2FF),
+      options: [
+        _GameOption(emoji: '🌙', word: 'Moon', isCorrect: true),
+        _GameOption(emoji: '🐒', word: 'Monkey', isCorrect: false),
+        _GameOption(emoji: '👃', word: 'Nose', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'N',
+      lowercase: 'n',
+      word: 'Nose',
+      phonetic: '/noʊz/',
+      translation: 'Cái mũi',
+      emoji: '👃',
+      color: Color(0xFF14B8A6),
+      bg: Color(0xFFF0FDFA),
+      options: [
+        _GameOption(emoji: '👃', word: 'Nose', isCorrect: true),
+        _GameOption(emoji: '🥜', word: 'Nut', isCorrect: false),
+        _GameOption(emoji: '🍊', word: 'Orange', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'O',
+      lowercase: 'o',
+      word: 'Orange',
+      phonetic: '/ɔːr-ɪndʒ/',
+      translation: 'Quả cam',
+      emoji: '🍊',
+      color: Color(0xFFF97316),
+      bg: Color(0xFFFFF7ED),
+      options: [
+        _GameOption(emoji: '🍊', word: 'Orange', isCorrect: true),
+        _GameOption(emoji: '🐙', word: 'Octopus', isCorrect: false),
+        _GameOption(emoji: '✏️', word: 'Pencil', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'P',
+      lowercase: 'p',
+      word: 'Pencil',
+      phonetic: '/pen-səl/',
+      translation: 'Bút chì',
+      emoji: '✏️',
+      color: Color(0xFF64748B),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '✏️', word: 'Pencil', isCorrect: true),
+        _GameOption(emoji: '🐼', word: 'Panda', isCorrect: false),
+        _GameOption(emoji: '👑', word: 'Queen', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'Q',
+      lowercase: 'q',
+      word: 'Queen',
+      phonetic: '/kwiːn/',
+      translation: 'Nữ hoàng',
+      emoji: '👑',
+      color: Color(0xFFA855F7),
+      bg: Color(0xFFFAF5FF),
+      options: [
+        _GameOption(emoji: '👑', word: 'Queen', isCorrect: true),
+        _GameOption(emoji: '❓', word: 'Question', isCorrect: false),
+        _GameOption(emoji: '🌈', word: 'Rainbow', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'R',
+      lowercase: 'r',
+      word: 'Rainbow',
+      phonetic: '/reɪn-boʊ/',
+      translation: 'Cầu vồng',
+      emoji: '🌈',
+      color: Color(0xFF22C55E),
+      bg: Color(0xFFF0FDF4),
+      options: [
+        _GameOption(emoji: '🌈', word: 'Rainbow', isCorrect: true),
+        _GameOption(emoji: '🚗', word: 'Robot', isCorrect: false),
+        _GameOption(emoji: '☀️', word: 'Sun', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'S',
+      lowercase: 's',
+      word: 'Sun',
+      phonetic: '/sʌn/',
+      translation: 'Mặt trời',
+      emoji: '☀️',
+      color: Color(0xFFEAB308),
+      bg: Color(0xFFFEFCE8),
+      options: [
+        _GameOption(emoji: '☀️', word: 'Sun', isCorrect: true),
+        _GameOption(emoji: '⭐', word: 'Star', isCorrect: false),
+        _GameOption(emoji: '🚂', word: 'Train', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'T',
+      lowercase: 't',
+      word: 'Train',
+      phonetic: '/treɪn/',
+      translation: 'Tàu hỏa',
+      emoji: '🚂',
+      color: Color(0xFFEF4444),
+      bg: Color(0xFFFEF2F2),
+      options: [
+        _GameOption(emoji: '🚂', word: 'Train', isCorrect: true),
+        _GameOption(emoji: '🐯', word: 'Tiger', isCorrect: false),
+        _GameOption(emoji: '☂️', word: 'Umbrella', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'U',
+      lowercase: 'u',
+      word: 'Umbrella',
+      phonetic: '/ʌm-brel-ə/',
+      translation: 'Cái ô',
+      emoji: '☂️',
+      color: Color(0xFF0EA5E9),
+      bg: Color(0xFFF0F9FF),
+      options: [
+        _GameOption(emoji: '☂️', word: 'Umbrella', isCorrect: true),
+        _GameOption(emoji: '🦄', word: 'Unicorn', isCorrect: false),
+        _GameOption(emoji: '🎻', word: 'Violin', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'V',
+      lowercase: 'v',
+      word: 'Violin',
+      phonetic: '/vaɪ-ə-lɪn/',
+      translation: 'Đàn vĩ cầm',
+      emoji: '🎻',
+      color: Color(0xFF9333EA),
+      bg: Color(0xFFFAF5FF),
+      options: [
+        _GameOption(emoji: '🎻', word: 'Violin', isCorrect: true),
+        _GameOption(emoji: '🚐', word: 'Van', isCorrect: false),
+        _GameOption(emoji: '⌚', word: 'Watch', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'W',
+      lowercase: 'w',
+      word: 'Watch',
+      phonetic: '/wɑːtʃ/',
+      translation: 'Đồng hồ',
+      emoji: '⌚',
+      color: Color(0xFF0891B2),
+      bg: Color(0xFFECFEFF),
+      options: [
+        _GameOption(emoji: '⌚', word: 'Watch', isCorrect: true),
+        _GameOption(emoji: '🍉', word: 'Watermelon', isCorrect: false),
+        _GameOption(emoji: '🎵', word: 'Xylophone', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'X',
+      lowercase: 'x',
+      word: 'Xylophone',
+      phonetic: '/zaɪ-lə-foʊn/',
+      translation: 'Đàn phiến gỗ',
+      emoji: '🎵',
+      color: Color(0xFFDB2777),
+      bg: Color(0xFFFDF2F8),
+      options: [
+        _GameOption(emoji: '🎵', word: 'Xylophone', isCorrect: true),
+        _GameOption(emoji: '❌', word: 'X mark', isCorrect: false),
+        _GameOption(emoji: '🪀', word: 'Yo-yo', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'Y',
+      lowercase: 'y',
+      word: 'Yo-yo',
+      phonetic: '/yoʊ-yoʊ/',
+      translation: 'Đồ chơi yo-yo',
+      emoji: '🪀',
+      color: Color(0xFF65A30D),
+      bg: Color(0xFFF7FEE7),
+      options: [
+        _GameOption(emoji: '🪀', word: 'Yo-yo', isCorrect: true),
+        _GameOption(emoji: '🛥️', word: 'Yacht', isCorrect: false),
+        _GameOption(emoji: '🦓', word: 'Zebra', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: 'Z',
+      lowercase: 'z',
+      word: 'Zebra',
+      phonetic: '/ziː-brə/',
+      translation: 'Ngựa vằn',
+      emoji: '🦓',
+      color: Color(0xFF475569),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '🦓', word: 'Zebra', isCorrect: true),
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: false),
+        _GameOption(emoji: '🍎', word: 'Apple', isCorrect: false),
+      ],
+    ),
+  ];
+
+  static final List<_LessonItem> _numberLessons = List.generate(20, (index) {
+    final words = [
+      'One',
+      'Two',
+      'Three',
+      'Four',
+      'Five',
+      'Six',
+      'Seven',
+      'Eight',
+      'Nine',
+      'Ten',
+      'Eleven',
+      'Twelve',
+      'Thirteen',
+      'Fourteen',
+      'Fifteen',
+      'Sixteen',
+      'Seventeen',
+      'Eighteen',
+      'Nineteen',
+      'Twenty',
+    ];
+    final translations = [
+      'Số một',
+      'Số hai',
+      'Số ba',
+      'Số bốn',
+      'Số năm',
+      'Số sáu',
+      'Số bảy',
+      'Số tám',
+      'Số chín',
+      'Số mười',
+      'Số mười một',
+      'Số mười hai',
+      'Số mười ba',
+      'Số mười bốn',
+      'Số mười lăm',
+      'Số mười sáu',
+      'Số mười bảy',
+      'Số mười tám',
+      'Số mười chín',
+      'Số hai mươi',
+    ];
+    final colors = [
+      const Color(0xFFD97706),
+      const Color(0xFFEA580C),
+      const Color(0xFFEAB308),
+      const Color(0xFF16A34A),
+      const Color(0xFF0284C7),
+      const Color(0xFF7C3AED),
+    ];
+    final number = index + 1;
+    final wrongOne = ((index + 1) % 20) + 1;
+    final wrongTwo = ((index + 6) % 20) + 1;
+    return _LessonItem(
+      letter: '$number',
+      lowercase: '',
+      word: words[index],
+      phonetic: '',
+      translation: translations[index],
+      emoji: '$number',
+      color: colors[index % colors.length],
+      bg: const Color(0xFFFFFBEB),
+      options: [
+        _GameOption(emoji: '$number', word: words[index], isCorrect: true),
+        _GameOption(
+          emoji: '$wrongOne',
+          word: words[wrongOne - 1],
+          isCorrect: false,
+        ),
+        _GameOption(
+          emoji: '$wrongTwo',
+          word: words[wrongTwo - 1],
+          isCorrect: false,
+        ),
+      ],
+    );
+  });
+
+  static const List<_LessonItem> _animalLessons = [
+    _LessonItem(
+      letter: '🐱',
+      lowercase: '',
+      word: 'Cat',
+      phonetic: '/kæt/',
+      translation: 'Con mèo',
+      emoji: '🐱',
+      color: Color(0xFFF97316),
+      bg: Color(0xFFFFF7ED),
+      options: [
+        _GameOption(emoji: '🐱', word: 'Cat', isCorrect: true),
+        _GameOption(emoji: '🐶', word: 'Dog', isCorrect: false),
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐶',
+      lowercase: '',
+      word: 'Dog',
+      phonetic: '/dɒg/',
+      translation: 'Con chó',
+      emoji: '🐶',
+      color: Color(0xFF10B981),
+      bg: Color(0xFFECFDF5),
+      options: [
+        _GameOption(emoji: '🐶', word: 'Dog', isCorrect: true),
+        _GameOption(emoji: '🐱', word: 'Cat', isCorrect: false),
+        _GameOption(emoji: '🐯', word: 'Tiger', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🦁',
+      lowercase: '',
+      word: 'Lion',
+      phonetic: '/laɪ-ən/',
+      translation: 'Sư tử',
+      emoji: '🦁',
+      color: Color(0xFFF97316),
+      bg: Color(0xFFFFF7ED),
+      options: [
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: true),
+        _GameOption(emoji: '🐯', word: 'Tiger', isCorrect: false),
+        _GameOption(emoji: '🐘', word: 'Elephant', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐯',
+      lowercase: '',
+      word: 'Tiger',
+      phonetic: '/taɪ-gər/',
+      translation: 'Con hổ',
+      emoji: '🐯',
+      color: Color(0xFFEF4444),
+      bg: Color(0xFFFEF2F2),
+      options: [
+        _GameOption(emoji: '🐯', word: 'Tiger', isCorrect: true),
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: false),
+        _GameOption(emoji: '🐒', word: 'Monkey', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐘',
+      lowercase: '',
+      word: 'Elephant',
+      phonetic: '/el-i-fənt/',
+      translation: 'Con voi',
+      emoji: '🐘',
+      color: Color(0xFF8B5CF6),
+      bg: Color(0xFFF5F3FF),
+      options: [
+        _GameOption(emoji: '🐘', word: 'Elephant', isCorrect: true),
+        _GameOption(emoji: '🐼', word: 'Panda', isCorrect: false),
+        _GameOption(emoji: '🐰', word: 'Rabbit', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐒',
+      lowercase: '',
+      word: 'Monkey',
+      phonetic: '/mʌŋ-ki/',
+      translation: 'Con khỉ',
+      emoji: '🐒',
+      color: Color(0xFFEAB308),
+      bg: Color(0xFFFEFCE8),
+      options: [
+        _GameOption(emoji: '🐒', word: 'Monkey', isCorrect: true),
+        _GameOption(emoji: '🐼', word: 'Panda', isCorrect: false),
+        _GameOption(emoji: '🐸', word: 'Frog', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐼',
+      lowercase: '',
+      word: 'Panda',
+      phonetic: '/pan-də/',
+      translation: 'Gấu trúc',
+      emoji: '🐼',
+      color: Color(0xFF475569),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '🐼', word: 'Panda', isCorrect: true),
+        _GameOption(emoji: '🐰', word: 'Rabbit', isCorrect: false),
+        _GameOption(emoji: '🐦', word: 'Bird', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐰',
+      lowercase: '',
+      word: 'Rabbit',
+      phonetic: '/rab-it/',
+      translation: 'Con thỏ',
+      emoji: '🐰',
+      color: Color(0xFFDB2777),
+      bg: Color(0xFFFDF2F8),
+      options: [
+        _GameOption(emoji: '🐰', word: 'Rabbit', isCorrect: true),
+        _GameOption(emoji: '🐟', word: 'Fish', isCorrect: false),
+        _GameOption(emoji: '🦓', word: 'Zebra', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐟',
+      lowercase: '',
+      word: 'Fish',
+      phonetic: '/fɪʃ/',
+      translation: 'Con cá',
+      emoji: '🐟',
+      color: Color(0xFF06B6D4),
+      bg: Color(0xFFECFEFF),
+      options: [
+        _GameOption(emoji: '🐟', word: 'Fish', isCorrect: true),
+        _GameOption(emoji: '🐦', word: 'Bird', isCorrect: false),
+        _GameOption(emoji: '🐸', word: 'Frog', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐦',
+      lowercase: '',
+      word: 'Bird',
+      phonetic: '/bɜːrd/',
+      translation: 'Con chim',
+      emoji: '🐦',
+      color: Color(0xFF0EA5E9),
+      bg: Color(0xFFF0F9FF),
+      options: [
+        _GameOption(emoji: '🐦', word: 'Bird', isCorrect: true),
+        _GameOption(emoji: '🐸', word: 'Frog', isCorrect: false),
+        _GameOption(emoji: '🐱', word: 'Cat', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🐸',
+      lowercase: '',
+      word: 'Frog',
+      phonetic: '/frɒg/',
+      translation: 'Con ếch',
+      emoji: '🐸',
+      color: Color(0xFF16A34A),
+      bg: Color(0xFFF0FDF4),
+      options: [
+        _GameOption(emoji: '🐸', word: 'Frog', isCorrect: true),
+        _GameOption(emoji: '🐟', word: 'Fish', isCorrect: false),
+        _GameOption(emoji: '🦓', word: 'Zebra', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🦓',
+      lowercase: '',
+      word: 'Zebra',
+      phonetic: '/ziː-brə/',
+      translation: 'Ngựa vằn',
+      emoji: '🦓',
+      color: Color(0xFF64748B),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '🦓', word: 'Zebra', isCorrect: true),
+        _GameOption(emoji: '🦁', word: 'Lion', isCorrect: false),
+        _GameOption(emoji: '🐘', word: 'Elephant', isCorrect: false),
+      ],
+    ),
+  ];
+
+  static const List<_LessonItem> _colorLessons = [
+    _LessonItem(
+      letter: '🔴',
+      lowercase: '',
+      word: 'Red',
+      phonetic: '/red/',
+      translation: 'Màu đỏ',
+      emoji: '🔴',
+      color: Color(0xFFEF4444),
+      bg: Color(0xFFFEF2F2),
+      options: [
+        _GameOption(emoji: '🔴', word: 'Red', isCorrect: true),
+        _GameOption(emoji: '🔵', word: 'Blue', isCorrect: false),
+        _GameOption(emoji: '🟡', word: 'Yellow', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🟠',
+      lowercase: '',
+      word: 'Orange',
+      phonetic: '/ɔːr-ɪndʒ/',
+      translation: 'Màu cam',
+      emoji: '🟠',
+      color: Color(0xFFF97316),
+      bg: Color(0xFFFFF7ED),
+      options: [
+        _GameOption(emoji: '🟠', word: 'Orange', isCorrect: true),
+        _GameOption(emoji: '🟢', word: 'Green', isCorrect: false),
+        _GameOption(emoji: '🟣', word: 'Purple', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🟡',
+      lowercase: '',
+      word: 'Yellow',
+      phonetic: '/yel-oʊ/',
+      translation: 'Màu vàng',
+      emoji: '🟡',
+      color: Color(0xFFEAB308),
+      bg: Color(0xFFFEFCE8),
+      options: [
+        _GameOption(emoji: '🟡', word: 'Yellow', isCorrect: true),
+        _GameOption(emoji: '🔴', word: 'Red', isCorrect: false),
+        _GameOption(emoji: '⚫', word: 'Black', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🟢',
+      lowercase: '',
+      word: 'Green',
+      phonetic: '/griːn/',
+      translation: 'Màu xanh lá',
+      emoji: '🟢',
+      color: Color(0xFF16A34A),
+      bg: Color(0xFFF0FDF4),
+      options: [
+        _GameOption(emoji: '🟢', word: 'Green', isCorrect: true),
+        _GameOption(emoji: '🔵', word: 'Blue', isCorrect: false),
+        _GameOption(emoji: '🟤', word: 'Brown', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🔵',
+      lowercase: '',
+      word: 'Blue',
+      phonetic: '/bluː/',
+      translation: 'Màu xanh dương',
+      emoji: '🔵',
+      color: Color(0xFF2563EB),
+      bg: Color(0xFFEFF6FF),
+      options: [
+        _GameOption(emoji: '🔵', word: 'Blue', isCorrect: true),
+        _GameOption(emoji: '🟣', word: 'Purple', isCorrect: false),
+        _GameOption(emoji: '⚪', word: 'White', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🟣',
+      lowercase: '',
+      word: 'Purple',
+      phonetic: '/pɜːr-pəl/',
+      translation: 'Màu tím',
+      emoji: '🟣',
+      color: Color(0xFF7C3AED),
+      bg: Color(0xFFF5F3FF),
+      options: [
+        _GameOption(emoji: '🟣', word: 'Purple', isCorrect: true),
+        _GameOption(emoji: '🩷', word: 'Pink', isCorrect: false),
+        _GameOption(emoji: '🟠', word: 'Orange', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🩷',
+      lowercase: '',
+      word: 'Pink',
+      phonetic: '/pɪŋk/',
+      translation: 'Màu hồng',
+      emoji: '🩷',
+      color: Color(0xFFDB2777),
+      bg: Color(0xFFFDF2F8),
+      options: [
+        _GameOption(emoji: '🩷', word: 'Pink', isCorrect: true),
+        _GameOption(emoji: '🔴', word: 'Red', isCorrect: false),
+        _GameOption(emoji: '🟤', word: 'Brown', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '⚫',
+      lowercase: '',
+      word: 'Black',
+      phonetic: '/blæk/',
+      translation: 'Màu đen',
+      emoji: '⚫',
+      color: Color(0xFF111827),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '⚫', word: 'Black', isCorrect: true),
+        _GameOption(emoji: '⚪', word: 'White', isCorrect: false),
+        _GameOption(emoji: '🟡', word: 'Yellow', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '⚪',
+      lowercase: '',
+      word: 'White',
+      phonetic: '/waɪt/',
+      translation: 'Màu trắng',
+      emoji: '⚪',
+      color: Color(0xFF64748B),
+      bg: Color(0xFFF8FAFC),
+      options: [
+        _GameOption(emoji: '⚪', word: 'White', isCorrect: true),
+        _GameOption(emoji: '⚫', word: 'Black', isCorrect: false),
+        _GameOption(emoji: '🔵', word: 'Blue', isCorrect: false),
+      ],
+    ),
+    _LessonItem(
+      letter: '🟤',
+      lowercase: '',
+      word: 'Brown',
+      phonetic: '/braʊn/',
+      translation: 'Màu nâu',
+      emoji: '🟤',
+      color: Color(0xFF92400E),
+      bg: Color(0xFFFFFBEB),
+      options: [
+        _GameOption(emoji: '🟤', word: 'Brown', isCorrect: true),
+        _GameOption(emoji: '🟢', word: 'Green', isCorrect: false),
+        _GameOption(emoji: '🟣', word: 'Purple', isCorrect: false),
+      ],
+    ),
   ];
 
   late final AnimationController _floatCtrl;
   late final AnimationController _speakerCtrl;
   late final AnimationController _celebrateCtrl;
+  late final AnimationController _hintCtrl;
   late final Animation<double> _floatAnim;
   late final Animation<double> _speakerAnim;
+  late final Animation<double> _hintAnim;
+  late final FlutterTts _flutterTts;
 
-  int _currentIndex = 0;
+  late int _currentIndex;
   int _stars = 0;
   bool _playMode = false;
   bool _isSpeaking = false;
@@ -139,12 +883,92 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   String? _selectedWord;
   final Set<int> _completedLessons = {};
 
+  List<_LessonItem> get _lessons {
+    switch (widget.topic) {
+      case 'numbers':
+        return _numberLessons;
+      case 'animals':
+        return _animalLessons;
+      case 'colors':
+        return _colorLessons;
+      default:
+        return _alphabetLessons;
+    }
+  }
+
+  String get _topicTitle {
+    switch (widget.topic) {
+      case 'numbers':
+        return 'Chữ số';
+      case 'animals':
+        return 'Động vật';
+      case 'colors':
+        return 'Màu sắc';
+      default:
+        return 'Alphabet';
+    }
+  }
+
+  String get _learnTitle {
+    switch (widget.topic) {
+      case 'numbers':
+        return 'Học số ${_lesson.letter}';
+      case 'animals':
+        return 'Học động vật';
+      case 'colors':
+        return 'Học màu sắc';
+      default:
+        return 'Học chữ ${_lesson.letter}';
+    }
+  }
+
+  String get _findPrompt {
+    switch (widget.topic) {
+      case 'numbers':
+        return 'Bé tìm số ${_lesson.letter} nhé';
+      case 'animals':
+        return 'Bé tìm con ${_lesson.translation.toLowerCase().replaceFirst('con ', '')} nhé';
+      case 'colors':
+        return 'Bé tìm ${_lesson.translation.toLowerCase()} nhé';
+      default:
+        return 'Bé tìm hình của chữ ${_lesson.letter} nhé';
+    }
+  }
+
+  String get _lessonSentence {
+    switch (widget.topic) {
+      case 'numbers':
+        return 'Number ${_lesson.letter}. ${_lesson.word}.';
+      case 'animals':
+        return '${_lesson.word}. This is a ${_lesson.word}.';
+      case 'colors':
+        return '${_lesson.word}. This color is ${_lesson.word}.';
+      default:
+        return 'Letter ${_lesson.letter}. ${_lesson.word}. This is ${_lesson.word}.';
+    }
+  }
+
+  String get _questionSentence {
+    switch (widget.topic) {
+      case 'numbers':
+        return 'Can you find number ${_lesson.letter}?';
+      case 'colors':
+        return 'Can you find ${_lesson.word}?';
+      default:
+        return 'Can you find ${_lesson.word}?';
+    }
+  }
+
   _LessonItem get _lesson => _lessons[_currentIndex];
+
   bool get _lessonComplete => _completedLessons.contains(_currentIndex);
 
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.initialLessonIndex
+        .clamp(0, _lessons.length - 1)
+        .toInt();
     _floatCtrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1800),
@@ -167,34 +991,92 @@ class _S6lessonScreenState extends State<S6lessonScreen>
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
+
+    _hintCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 950),
+    )..repeat(reverse: true);
+    _hintAnim = Tween<double>(
+      begin: 0.96,
+      end: 1.04,
+    ).animate(CurvedAnimation(parent: _hintCtrl, curve: Curves.easeInOut));
+
+    _flutterTts = FlutterTts();
+    _setupTextToSpeech();
   }
 
   @override
   void dispose() {
+    _flutterTts.stop();
     _floatCtrl.dispose();
     _speakerCtrl.dispose();
     _celebrateCtrl.dispose();
+    _hintCtrl.dispose();
     super.dispose();
   }
 
-  Future<void> _speak() async {
-    setState(() => _isSpeaking = true);
-    await _speakerCtrl.forward(from: 0);
-    await _speakerCtrl.reverse();
-    if (mounted) setState(() => _isSpeaking = false);
+  Future<void> _setupTextToSpeech() async {
+    await _flutterTts.setLanguage('en-US');
+    await _flutterTts.setSpeechRate(0.38);
+    await _flutterTts.setPitch(1.05);
+    await _flutterTts.setVolume(1.0);
+    await _flutterTts.awaitSpeakCompletion(true);
+    _flutterTts.setCompletionHandler(() {
+      if (mounted) setState(() => _isSpeaking = false);
+    });
+    _flutterTts.setCancelHandler(() {
+      if (mounted) setState(() => _isSpeaking = false);
+    });
+    _flutterTts.setErrorHandler((_) {
+      if (mounted) {
+        setState(() {
+          _isSpeaking = false;
+          _feedback = 'Máy chưa bật giọng đọc tiếng Anh';
+        });
+      }
+    });
   }
+
+  Future<void> _say(String text, {double speechRate = 0.38}) async {
+    setState(() => _isSpeaking = true);
+    try {
+      await _speakerCtrl.forward(from: 0);
+      await _speakerCtrl.reverse();
+      await _flutterTts.stop();
+      await _flutterTts.setSpeechRate(speechRate);
+      await _flutterTts.speak(text);
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _isSpeaking = false;
+          _feedback = 'Không phát được âm thanh, thử bật âm lượng máy nhé';
+        });
+      }
+    }
+  }
+
+  Future<void> _speak() => _say(_lessonSentence);
+
+  Future<void> _speakQuestion() => _say(_questionSentence, speechRate: 0.34);
 
   void _chooseOption(_GameOption option) {
     setState(() {
       _selectedWord = option.word;
       if (option.isCorrect) {
-        _feedback = 'Giỏi lắm! ${_lesson.letter} là ${_lesson.word}';
+        _feedback = 'Giỏi lắm! Đây là ${_lesson.word}';
         if (_completedLessons.add(_currentIndex)) _stars += 3;
         _celebrateCtrl.forward(from: 0);
       } else {
         _feedback = 'Gần đúng rồi, bé thử lại nhé';
       }
     });
+    if (option.isCorrect) {
+      SystemSound.play(SystemSoundType.alert);
+      _say('Great job! This is ${_lesson.word}.', speechRate: 0.36);
+    } else {
+      SystemSound.play(SystemSoundType.click);
+      _say('Try again. $_questionSentence', speechRate: 0.34);
+    }
   }
 
   void _goToLesson(int index) {
@@ -210,13 +1092,16 @@ class _S6lessonScreenState extends State<S6lessonScreen>
     if (!_playMode) {
       setState(() {
         _playMode = true;
-        _feedback = 'Bé tìm hình của chữ ${_lesson.letter} nhé';
+        _feedback = _findPrompt;
       });
+      SystemSound.play(SystemSoundType.click);
+      _speakQuestion();
       return;
     }
 
     if (!_lessonComplete) {
       setState(() => _feedback = 'Chọn đúng hình để mở bài tiếp theo nào');
+      _speakQuestion();
       return;
     }
 
@@ -242,8 +1127,13 @@ class _S6lessonScreenState extends State<S6lessonScreen>
               _TopBar(
                 lessonNumber: _currentIndex + 1,
                 totalLessons: _lessons.length,
+                title: _topicTitle,
                 stars: _stars,
-                onBack: () => Navigator.pushNamed(context, '/s5_module'),
+                onBack: () => Navigator.pushNamed(
+                  context,
+                  '/s5_module',
+                  arguments: widget.topic,
+                ),
               ),
               const SizedBox(height: 12),
               _ProgressPills(
@@ -280,7 +1170,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
 
   Widget _buildLearningCard(bool isTablet) {
     return Container(
-      key: ValueKey('learn-${_lesson.letter}'),
+      key: ValueKey('learn-${widget.topic}-${_lesson.letter}'),
       width: double.infinity,
       padding: EdgeInsets.all(isTablet ? 30 : 22),
       decoration: _cardDecoration(_lesson.color),
@@ -300,7 +1190,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Học chữ ${_lesson.letter}',
+                _learnTitle,
                 style: TextStyle(
                   color: _lesson.color,
                   fontSize: 17,
@@ -329,15 +1219,17 @@ class _S6lessonScreenState extends State<S6lessonScreen>
                         color: _lesson.color,
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    Text(
-                      _lesson.lowercase,
-                      style: TextStyle(
-                        fontSize: isTablet ? 72 : 56,
-                        fontWeight: FontWeight.w800,
-                        color: _lesson.color.withValues(alpha: 0.55),
+                    if (_lesson.lowercase.isNotEmpty) ...[
+                      const SizedBox(width: 8),
+                      Text(
+                        _lesson.lowercase,
+                        style: TextStyle(
+                          fontSize: isTablet ? 72 : 56,
+                          fontWeight: FontWeight.w800,
+                          color: _lesson.color.withValues(alpha: 0.55),
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
@@ -356,15 +1248,17 @@ class _S6lessonScreenState extends State<S6lessonScreen>
                       color: Color(0xFF0F172A),
                     ),
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    _lesson.phonetic,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF64748B),
+                  if (_lesson.phonetic.isNotEmpty) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      _lesson.phonetic,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF64748B),
+                      ),
                     ),
-                  ),
+                  ],
                   const SizedBox(height: 10),
                   Text(
                     _lesson.translation,
@@ -391,7 +1285,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
 
   Widget _buildGameCard(bool isTablet) {
     return Container(
-      key: ValueKey('game-${_lesson.letter}'),
+      key: ValueKey('game-${widget.topic}-${_lesson.letter}'),
       width: double.infinity,
       padding: EdgeInsets.all(isTablet ? 28 : 18),
       decoration: _cardDecoration(_lesson.color),
@@ -410,56 +1304,79 @@ class _S6lessonScreenState extends State<S6lessonScreen>
                 ),
               ),
               const SizedBox(height: 10),
-              DragTarget<_GameOption>(
-                onWillAcceptWithDetails: (_) => true,
-                onAcceptWithDetails: (details) => _chooseOption(details.data),
-                builder: (context, candidates, rejected) {
-                  final isHovering = candidates.isNotEmpty;
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 180),
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: isTablet ? 22 : 18,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isHovering
-                          ? _lesson.color.withValues(alpha: 0.14)
-                          : const Color(0xFFF8FAFC),
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(
-                        color: _lesson.color.withValues(
-                          alpha: isHovering ? 0.7 : 0.24,
-                        ),
-                        width: 3,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          _lesson.letter,
-                          style: TextStyle(
-                            fontSize: isTablet ? 70 : 54,
-                            height: 1,
-                            fontWeight: FontWeight.w900,
-                            color: _lesson.color,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'Đâu là ${_lesson.word}?',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                            color: Color(0xFF0F172A),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+              _buildPlayMascot(isTablet),
+              const SizedBox(height: 10),
+              AnimatedBuilder(
+                animation: _hintAnim,
+                builder: (context, child) {
+                  return Transform.scale(scale: _hintAnim.value, child: child);
                 },
+                child: DragTarget<_GameOption>(
+                  onWillAcceptWithDetails: (_) => true,
+                  onAcceptWithDetails: (details) => _chooseOption(details.data),
+                  builder: (context, candidates, rejected) {
+                    final isHovering = candidates.isNotEmpty;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: isTablet ? 20 : 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isHovering
+                            ? _lesson.color.withValues(alpha: 0.16)
+                            : const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(28),
+                        border: Border.all(
+                          color: _lesson.color.withValues(
+                            alpha: isHovering ? 0.75 : 0.26,
+                          ),
+                          width: 3,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: _lesson.color.withValues(alpha: 0.18),
+                            blurRadius: isHovering ? 22 : 14,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            _lesson.letter,
+                            style: TextStyle(
+                              fontSize: isTablet ? 64 : 48,
+                              height: 1,
+                              fontWeight: FontWeight.w900,
+                              color: _lesson.color,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'Đâu là ${_lesson.word}?',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xFF0F172A),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          _QuestionSoundButton(
+                            color: _lesson.color,
+                            isSpeaking: _isSpeaking,
+                            onTap: _speakQuestion,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 12),
+              _buildEnergyDots(),
+              const SizedBox(height: 12),
               Expanded(
                 child: GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
@@ -509,6 +1426,69 @@ class _S6lessonScreenState extends State<S6lessonScreen>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPlayMascot(bool isTablet) {
+    return AnimatedBuilder(
+      animation: Listenable.merge([_floatAnim, _hintAnim]),
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _floatAnim.value * 0.5),
+          child: Transform.scale(scale: _hintAnim.value, child: child),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: _lesson.color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(999),
+          border: Border.all(color: _lesson.color.withValues(alpha: 0.22)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(_lesson.emoji, style: TextStyle(fontSize: isTablet ? 26 : 22)),
+            const SizedBox(width: 8),
+            Text(
+              _lessonComplete ? 'Yay! +3 sao' : 'Nghe rồi chọn nhé',
+              style: TextStyle(
+                color: _lesson.color,
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Text('✨', style: TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEnergyDots() {
+    return AnimatedBuilder(
+      animation: _hintCtrl,
+      builder: (context, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(5, (index) {
+            final wave = math.sin((_hintCtrl.value + index * 0.14) * math.pi);
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 120),
+              width: 8 + wave.abs() * 8,
+              height: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                color: index.isEven
+                    ? _lesson.color.withValues(alpha: 0.72)
+                    : Colors.amber.withValues(alpha: 0.78),
+                borderRadius: BorderRadius.circular(999),
+              ),
+            );
+          }),
+        );
+      },
     );
   }
 
@@ -640,12 +1620,14 @@ class _TopBar extends StatelessWidget {
   const _TopBar({
     required this.lessonNumber,
     required this.totalLessons,
+    required this.title,
     required this.stars,
     required this.onBack,
   });
 
   final int lessonNumber;
   final int totalLessons;
+  final String title;
   final int stars;
   final VoidCallback onBack;
 
@@ -661,7 +1643,7 @@ class _TopBar extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
           child: Text(
-            'Lesson $lessonNumber/$totalLessons',
+            '$title $lessonNumber/$totalLessons',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w900,
@@ -903,6 +1885,59 @@ class _SpeakButton extends StatelessWidget {
         label: const Text(
           'Nghe',
           style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+        ),
+      ),
+    );
+  }
+}
+
+class _QuestionSoundButton extends StatelessWidget {
+  const _QuestionSoundButton({
+    required this.color,
+    required this.isSpeaking,
+    required this.onTap,
+  });
+
+  final Color color;
+  final bool isSpeaking;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(999),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.24),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              isSpeaking ? Icons.graphic_eq_rounded : Icons.volume_up_rounded,
+              color: Colors.white,
+              size: 16,
+            ),
+            const SizedBox(width: 6),
+            const Text(
+              'Nghe câu hỏi',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ],
         ),
       ),
     );
