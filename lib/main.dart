@@ -13,7 +13,7 @@ import 'l10n/app_localizations.dart';
 import 'pages/parent/gate/parent_gate_screen.dart';
 import 'pages/home/s4_home_screen.dart';
 import 's5_module_screen.dart';
-import 's6_lesson_screen.dart';
+import 'pages/lesson/s6_lesson_screen.dart';
 import 's7_quiz_screen.dart';
 import 's8_reward_screen.dart';
 import 's9_daily_mission_screen.dart';

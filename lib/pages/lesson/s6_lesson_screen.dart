@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-import 'l10n/app_localizations.dart';
+import '../../l10n/app_localizations.dart';
 
 class S6lessonScreen extends StatefulWidget {
   const S6lessonScreen({
