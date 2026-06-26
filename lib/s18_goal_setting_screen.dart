@@ -43,7 +43,7 @@ class _S18goalsettingState extends State<S18goalsettingScreen> {
                           color: Color(0xFF64748B),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/s17_parent_dashboard');
+                          Navigator.pop(context);
                         },
                       ),
                       const Text(

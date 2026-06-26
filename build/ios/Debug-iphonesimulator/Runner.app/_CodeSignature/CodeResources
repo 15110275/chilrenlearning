@@ -18,7 +18,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		20pkHX1TrJtLfOP6EfWVCu/lyRY=
+		ueo8KWKJIcAA3eiYLXRnClgwMYY=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		bQu3CRZKLDmDnXHSTr1Z/jWkAZc=
+		qAzrosGCw97/wjMtnhDRKv7SS4g=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		LsmP8hGlubZsInwwclSe07u0pks=
+		uBpHb2H4i2OTMJobIKe/3dSEGP4=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -66,11 +66,11 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		Ww3VT3Dl9OS0AKPDAn4HEANxMyE=
+		IEn4E54ileQHt9VfdImvjcJu1gA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
 		<data>
-		re4p7E8rPLLsN+wzaPN/+AVpXTY=
+		BASHf/14q0VcgmnKtkQLt+qMEqo=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		59185P9jMAJee0XVO8lpstCRsaE=
+		3+PTZ4vChDjmoNUvXRoRmR/AqDk=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -200,6 +200,70 @@
 		<data>
 		j5wlnTozB4ari71J5+eav6HVUu0=
 		</data>
+		<key>Frameworks/connectivity_plus.framework/Info.plist</key>
+		<data>
+		HJ7u4cGHVfy07QZypXrn63DQlxA=
+		</data>
+		<key>Frameworks/connectivity_plus.framework/_CodeSignature/CodeResources</key>
+		<data>
+		UBPl8tEi3M3j5zhrPeOTnwPJhrg=
+		</data>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus</key>
+		<data>
+		sNgrKEw1lNl7xvPVFmiX2Q+5L08=
+		</data>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus_privacy.bundle/Info.plist</key>
+		<data>
+		9uH/0zV+GOhDdLFat/5rjGvPbyA=
+		</data>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
+		</data>
+		<key>Frameworks/device_info_plus.framework/Info.plist</key>
+		<data>
+		wdkgjBP4Y30CRjYHPgTPoMNW4GQ=
+		</data>
+		<key>Frameworks/device_info_plus.framework/_CodeSignature/CodeResources</key>
+		<data>
+		P2D9+lPNVUTkCK9tk75bg4vMt2s=
+		</data>
+		<key>Frameworks/device_info_plus.framework/device_info_plus</key>
+		<data>
+		dtSbSycpTrP7+PPRPly4NgnEirw=
+		</data>
+		<key>Frameworks/objective_c.framework/Info.plist</key>
+		<data>
+		TE+E1mxiYaEUCJN+bms96LlMOqs=
+		</data>
+		<key>Frameworks/objective_c.framework/_CodeSignature/CodeResources</key>
+		<data>
+		c3cQHcgpFZr+Qv7wLY9rW7MUZdc=
+		</data>
+		<key>Frameworks/objective_c.framework/objective_c</key>
+		<data>
+		/N9xoGYPuElpVzXD67rO7jBKFQg=
+		</data>
+		<key>Frameworks/package_info_plus.framework/Info.plist</key>
+		<data>
+		Bf/TjKjjmD6ktMn9VKOQCRJyys0=
+		</data>
+		<key>Frameworks/package_info_plus.framework/_CodeSignature/CodeResources</key>
+		<data>
+		aWAsRlFvUquXDDI2If8Vx/9IzQE=
+		</data>
+		<key>Frameworks/package_info_plus.framework/package_info_plus</key>
+		<data>
+		AQ4sR8Cfw9AnWjjv4Zxrsx4nGTw=
+		</data>
+		<key>Frameworks/package_info_plus.framework/package_info_plus_privacy.bundle/Info.plist</key>
+		<data>
+		6T+jICaKGp9p+1q2NPbPbDLCcEE=
+		</data>
+		<key>Frameworks/package_info_plus.framework/package_info_plus_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		OLgn/EOrsbSWew2gaSqO9ZMdXho=
@@ -210,7 +274,7 @@
 		</data>
 		<key>Runner.debug.dylib</key>
 		<data>
-		IAeCk2EP5OumdSePR6mAKnHkTRA=
+		oSriYLNy9ttuDtxD7cO83a+sUlQ=
 		</data>
 		<key>__preview.dylib</key>
 		<data>
@@ -244,7 +308,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+eacjLeFkhC+B5diQoywJXJ4H/1tvRXc7fu9/OAl4OQ=
+			Ha7cSj4slRja+Cz1kq0+15EU85C9Y1c/oPL4zo7x59I=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
@@ -293,7 +357,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LeODltLKN8tb2GYeMAX/NH3zsm/j1HswtMOq4eiGcLk=
+			7PRKz1QDvF5laFeB/Vt/X9dtnwnrhRnEpeeKwmLq+Jg=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -307,7 +371,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JIEOY3sQtBWN5mTKzucSNrKxXZGWlAH1bczura7t42U=
+			EIllIDLioW1xWTKO8iiDI+KLtLkpPHATUEVe5QTfC3A=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -328,14 +392,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			E062v2dhXjjDM/PEm5gvwNMW+CAHARn2u3dUOsclh5o=
+			Dmv89ADzpLn3Ka4bzs/qwRLWV7tNCIuF3Qkpf+zCaYg=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lUijHkoEgTXB2U+Rkyi/tirix7s8q5ZVfHlB2ql3dss=
+			Ylst3tzkLj0hjOuIabyRGejeqGUKbLJKt3nVAIBVsUE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -356,7 +420,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			G0+qdtJ+oXo9Ly6j7UhKBClXz/yG9VqfkzxwSe0uf40=
+			mGKbfFkZr4/TNi2woq+0EsykxO78KW+cg8T5eAWIw6Y=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -562,11 +626,123 @@
 			mYNngJqCHVlZKAicGXs/eVnwQg+B951NDa7lM3hJLtU=
 			</data>
 		</dict>
+		<key>Frameworks/connectivity_plus.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o2AB6+zhfX5vjhID6FlDFpCZcvOlJDN11LA7WV+bCFQ=
+			</data>
+		</dict>
+		<key>Frameworks/connectivity_plus.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XKbJgYtHYtD6I/+k85LkPSyM1vXYZ6mbbVbBGWSoS2k=
+			</data>
+		</dict>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PI4xbX2QWdcNt9eLBBHxmzZQhhtC38M4rJWLtvTFP2s=
+			</data>
+		</dict>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus_privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			K8BWkR6JP2hgqhDDBV5at/vc76pfu7oUdQ4S/UvEkXo=
+			</data>
+		</dict>
+		<key>Frameworks/connectivity_plus.framework/connectivity_plus_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
+			</data>
+		</dict>
+		<key>Frameworks/device_info_plus.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I9KvOMgHcFsBYV5CMNXUDGosF+Q8eY0lcag0vXxfNe8=
+			</data>
+		</dict>
+		<key>Frameworks/device_info_plus.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			biciF83iErZwid91XiMOblaFqiCjzEBw6TYHj3J7mb0=
+			</data>
+		</dict>
+		<key>Frameworks/device_info_plus.framework/device_info_plus</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			V09iL6GcgjgKKPyBhpKVPBYO2z807Z5tNG20uhQ3Igo=
+			</data>
+		</dict>
+		<key>Frameworks/objective_c.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ieq7oc4JBoBJbhQ2cAj3lSMF0hTTgor4XjlXYThOKLA=
+			</data>
+		</dict>
+		<key>Frameworks/objective_c.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eiUq9jVK86qiiJ1h7Bcv5yn/+cD5ol8Tlb7TyDDM7rw=
+			</data>
+		</dict>
+		<key>Frameworks/objective_c.framework/objective_c</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yauvVIN6aF3+fF2jqSZA2X8WxSVlQMnGfjQZ+Lb1ulw=
+			</data>
+		</dict>
+		<key>Frameworks/package_info_plus.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cjPEVl5SF9XF1PaG0fDrdW4BFg3mh7RS0xuCf1gd2dM=
+			</data>
+		</dict>
+		<key>Frameworks/package_info_plus.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qIMCVg0BGzdRfV1+E2IBctJOApqv6YqduBdItnpg19o=
+			</data>
+		</dict>
+		<key>Frameworks/package_info_plus.framework/package_info_plus</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ahck9TC/oCo0P4tvrO2Lkys4MXGJa6Z+L8JSrkwjrSg=
+			</data>
+		</dict>
+		<key>Frameworks/package_info_plus.framework/package_info_plus_privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CY+6wtECwsZF/OwbCG9EL2yVO4G2m9cLbpPEOEu2Ygw=
+			</data>
+		</dict>
+		<key>Frameworks/package_info_plus.framework/package_info_plus_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
+			</data>
+		</dict>
 		<key>Runner.debug.dylib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+Z7jwDrzKv/es0kNEjHabkvVoVcBt6D1a83aOr+WZFI=
+			gU/aURaKO2cy/EkY9sYrAjpDx0GzRaACTEILFAPTa9w=
 			</data>
 		</dict>
 		<key>__preview.dylib</key>

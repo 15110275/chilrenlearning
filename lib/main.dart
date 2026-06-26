@@ -2,13 +2,14 @@ import 'package:chidren_learning/pages/onboarding/onboarding_screen.dart';
 import 'package:chidren_learning/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // =========================================================================
 // 1. DANH SÁCH KHAI BÁO IMPORT (ĐỒNG BỘ 100% VỚI THƯ MỤC CỦA BẠN)
 // Khi bạn viết xong Class bên trong file nào, hãy bỏ dấu '//' ở đầu dòng đó.
 // =========================================================================
-import 's3_parent_gate_screen.dart';
-import 's4_home_screen.dart';
+import 'pages/parent/gate/parent_gate_screen.dart';
+import 'pages/home/s4_home_screen.dart';
 import 's5_module_screen.dart';
 import 's6_lesson_screen.dart';
 import 's7_quiz_screen.dart';
@@ -21,7 +22,7 @@ import 's13_quiz_result_screen.dart';
 import 's14_reward_shop_screen.dart';
 import 's15_multi_child_screen.dart';
 import 's16_report_screen.dart';
-import 's17_parent_dashboard_screen.dart';
+import 'pages/parent/home/dashboard/parent_dashboard_screen.dart';
 import 's18_goal_setting_screen.dart';
 import 's19_screen_time_screen.dart';
 import 's20_parent_settings_screen.dart';
@@ -40,12 +41,24 @@ void main() {
 
   // Khóa cứng ứng dụng ở chế độ màn hình dọc (Portrait) tối ưu cho trẻ nhỏ học tập
   WidgetsFlutterBinding.ensureInitialized();
+  // ✅ MỚI: Cho phép xoay màn hình - PORTRAIT & LANDSCAPE
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
+    DeviceOrientation.landscapeLeft,      // ← THÊM
+    DeviceOrientation.landscapeRight,     // ← THÊM
   ]);
 
-  runApp(const BeHocTiengAnhApp());
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return const BeHocTiengAnhApp();
+      },
+    ),
+  );
 }
 
 class BeHocTiengAnhApp extends StatelessWidget {
@@ -130,13 +143,13 @@ class BeHocTiengAnhApp extends StatelessWidget {
 
           case '/s3_parent_gate':
             // Khi s3 đã sẵn sàng, hãy bỏ cmt dòng dưới:
-            builder = const S3parentgateScreen();
+            builder = const ParentGateScreen();
             // builder = const DummyScreenPlaceholder(id: 3, name: 'Parent Gate Challenge');
             break;
 
           case '/s4_home':
             // Màn hình trang chủ tích hợp responsive thông minh
-            builder = const S4homeScreen();
+            builder = const HomeScreen();
             // builder = const MainResponsiveNavigation();
             break;
 

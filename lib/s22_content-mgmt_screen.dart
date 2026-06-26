@@ -87,10 +87,7 @@ class _S22contentmgmtScreenState extends State<S22contentmgmtScreen> {
                           Icons.arrow_back_rounded,
                           color: Color(0xFF64748B),
                         ),
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          '/s17_parent_dashboard',
-                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
                       const Text(
                         'QUẢN LÝ CHỦ ĐỀ',

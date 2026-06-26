@@ -42,7 +42,7 @@ class _S19screentimeState extends State<S19screentimeScreen> {
                           color: Color(0xFF64748B),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, '/s17_parent_dashboard');
+                          Navigator.pop(context);
                         },
                       ),
                       const Text(

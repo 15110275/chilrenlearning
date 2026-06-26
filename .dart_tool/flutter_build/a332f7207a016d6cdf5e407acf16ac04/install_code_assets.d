@@ -1,1 +1,1 @@
- /Users/luanvuvan/AndroidStudioProjects/chidren_learning_new/.dart_tool/flutter_build/a332f7207a016d6cdf5e407acf16ac04/native_assets.json: 
+ /Users/luanvuvan/AndroidStudioProjects/chidren_learning_new/.dart_tool/flutter_build/a332f7207a016d6cdf5e407acf16ac04/native_assets.json:  /Users/luanvuvan/AndroidStudioProjects/chidren_learning_new/.dart_tool/hooks_runner/shared/objective_c/build/84fd4fa0ea/objective_c.dylib
