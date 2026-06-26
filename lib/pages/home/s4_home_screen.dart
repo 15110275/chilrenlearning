@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../../l10n/app_localizations.dart';
+
 /// Flutter Widget mô phỏng màn hình: HOME
 /// Sinh động: mascot float, card bounce-in, streak fire, progress animated, particles
 
@@ -157,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
     final bool isTablet = sw > 600;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF0F6FF),
@@ -179,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   const SizedBox(height: 10),
                   _buildStreakAndGoal(),
                   const SizedBox(height: 14),
-                  _buildSectionLabel('CHỌN CHỦ ĐỀ HỌC:'),
+                  _buildSectionLabel(l10n.text('chooseTopic')),
                   const SizedBox(height: 10),
                   Expanded(child: _buildGrid(isTablet)),
                   _buildNavBar(),
@@ -262,8 +265,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       color: const Color(0xFFFEF3C7),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text(
-                      'Level 2 🎖️',
+                    child: Text(
+                      '${AppLocalizations.of(context).text('level')} 🎖️',
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.w800,
@@ -379,13 +382,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Text('🎯', style: TextStyle(fontSize: 14)),
-                  SizedBox(width: 6),
+                  const Text('🎯', style: TextStyle(fontSize: 14)),
+                  const SizedBox(width: 6),
                   Text(
-                    'Mục tiêu hôm nay: 5 bài',
-                    style: TextStyle(
+                    AppLocalizations.of(context).text('todayGoal'),
+                    style: const TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w800,
                       color: Color(0xFF334155),
@@ -596,6 +599,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     final Color accent = cat['color'] as Color;
     final double progress = cat['progress'] as double;
     final bool done = progress >= 1.0;
+    final l10n = AppLocalizations.of(context);
+    final topic = cat['topic'] as String;
 
     return GestureDetector(
       onTap: () => Navigator.pushNamed(
@@ -685,7 +690,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    cat['title'] as String,
+                    l10n.text(topic),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 11,
@@ -719,7 +724,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      done ? '✅ Hoàn tất' : '${cat['badge']} Học',
+                      done
+                          ? '✅ ${l10n.text('complete')}'
+                          : '${cat['badge']} ${l10n.text('learn')}',
                       style: TextStyle(
                         fontSize: 8,
                         fontWeight: FontWeight.w900,
@@ -767,10 +774,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   // ── Bottom nav
   Widget _buildNavBar() {
     final items = [
-      {'emoji': '🏠', 'label': 'Trang chủ', 'route': ''},
-      {'emoji': '🗺️', 'label': 'Bản đồ', 'route': '/s12_map'},
-      {'emoji': '🎁', 'label': 'Phần thưởng', 'route': '/s14_reward_shop'},
-      {'emoji': '🔒', 'label': 'Phụ huynh', 'route': '/s3_parent_gate'},
+      {
+        'emoji': '🏠',
+        'label': AppLocalizations.of(context).text('home'),
+        'route': '',
+      },
+      {
+        'emoji': '🗺️',
+        'label': AppLocalizations.of(context).text('map'),
+        'route': '/s12_map',
+      },
+      {
+        'emoji': '🎁',
+        'label': AppLocalizations.of(context).text('rewards'),
+        'route': '/s14_reward_shop',
+      },
+      {
+        'emoji': '🔒',
+        'label': AppLocalizations.of(context).text('parent'),
+        'route': '/s3_parent_gate',
+      },
     ];
 
     return Container(

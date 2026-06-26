@@ -12,10 +12,12 @@
         "device_info_plus",
         "flutter",
         "flutter_device_type",
+        "flutter_localizations",
         "flutter_screenutil",
         "flutter_tts",
         "get",
         "get_storage",
+        "intl",
         "package_info_plus"
       ],
       "devDependencies": [
@@ -134,6 +136,24 @@
       "name": "cupertino_icons",
       "version": "1.0.9",
       "dependencies": []
+    },
+    {
+      "name": "intl",
+      "version": "0.20.2",
+      "dependencies": [
+        "clock",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "flutter_localizations",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "intl",
+        "path"
+      ]
     },
     {
       "name": "flutter",

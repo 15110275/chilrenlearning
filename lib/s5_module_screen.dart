@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'l10n/app_localizations.dart';
+
 class S5moduleScreen extends StatefulWidget {
   const S5moduleScreen({super.key, this.topic = 'alphabet'});
 
@@ -156,11 +158,40 @@ class _S5moduleScreenState extends State<S5moduleScreen> {
     }
   }
 
+  String _title(AppLocalizations l10n) => l10n.text(widget.topic);
+
+  String _progressText(AppLocalizations l10n) {
+    switch (widget.topic) {
+      case 'numbers':
+        return l10n.text('learnNumbersProgress');
+      case 'animals':
+        return l10n.text('learnAnimalsProgress');
+      case 'colors':
+        return l10n.text('learnColorsProgress');
+      default:
+        return l10n.text('learnAlphabetProgress');
+    }
+  }
+
+  String _actionText(AppLocalizations l10n) {
+    switch (widget.topic) {
+      case 'numbers':
+        return l10n.text('continueNumbers');
+      case 'animals':
+        return l10n.text('continueAnimals');
+      case 'colors':
+        return l10n.text('continueColors');
+      default:
+        return l10n.text('continueAlphabet');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final bool isTablet = screenWidth > 600;
     final config = _config;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF4F9FD),
@@ -190,7 +221,7 @@ class _S5moduleScreenState extends State<S5moduleScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      config.progressText,
+                      _progressText(l10n),
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
@@ -202,7 +233,7 @@ class _S5moduleScreenState extends State<S5moduleScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                config.title,
+                _title(l10n),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
@@ -277,7 +308,7 @@ class _S5moduleScreenState extends State<S5moduleScreen> {
                             if (learned) ...[
                               const SizedBox(height: 2),
                               Text(
-                                'ĐÃ HỌC',
+                                l10n.text('learned'),
                                 style: TextStyle(
                                   fontSize: 6,
                                   fontWeight: FontWeight.w800,
@@ -312,7 +343,7 @@ class _S5moduleScreenState extends State<S5moduleScreen> {
                     ),
                   ),
                   child: Text(
-                    '${config.actionText} ➔',
+                    '${_actionText(l10n)} ➔',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

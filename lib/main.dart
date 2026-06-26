@@ -2,7 +2,9 @@ import 'package:chidren_learning/pages/onboarding/onboarding_screen.dart';
 import 'package:chidren_learning/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'l10n/app_localizations.dart';
 
 // =========================================================================
 // 1. DANH SÁCH KHAI BÁO IMPORT (ĐỒNG BỘ 100% VỚI THƯ MỤC CỦA BẠN)
@@ -69,6 +71,13 @@ class BeHocTiengAnhApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bé Học Tiếng Anh Offline',
       debugShowCheckedModeBanner: false,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
 
       // =========================================================================
       // 2. DESIGN SYSTEM THEME: Ngôn ngữ thiết kế trực quan, tươi sáng cho trẻ

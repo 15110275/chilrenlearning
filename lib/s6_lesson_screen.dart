@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import 'l10n/app_localizations.dart';
+
 class S6lessonScreen extends StatefulWidget {
   const S6lessonScreen({
     super.key,
@@ -881,6 +883,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   bool _isSpeaking = false;
   String? _feedback;
   String? _selectedWord;
+  String _ttsLocale = 'en-US';
   final Set<int> _completedLessons = {};
 
   List<_LessonItem> get _lessons {
@@ -897,65 +900,59 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   String get _topicTitle {
-    switch (widget.topic) {
-      case 'numbers':
-        return 'Chữ số';
-      case 'animals':
-        return 'Động vật';
-      case 'colors':
-        return 'Màu sắc';
-      default:
-        return 'Alphabet';
-    }
+    return AppLocalizations.of(context).text(widget.topic);
   }
 
   String get _learnTitle {
+    final l10n = AppLocalizations.of(context);
     switch (widget.topic) {
       case 'numbers':
-        return 'Học số ${_lesson.letter}';
+        return l10n.text('learnNumber', params: {'value': _lesson.letter});
       case 'animals':
-        return 'Học động vật';
+        return l10n.text('learnAnimal');
       case 'colors':
-        return 'Học màu sắc';
+        return l10n.text('learnColor');
       default:
-        return 'Học chữ ${_lesson.letter}';
+        return l10n.text('learnLetter', params: {'value': _lesson.letter});
     }
   }
 
   String get _findPrompt {
+    final l10n = AppLocalizations.of(context);
     switch (widget.topic) {
       case 'numbers':
-        return 'Bé tìm số ${_lesson.letter} nhé';
+        return l10n.text('findNumber', params: {'value': _lesson.letter});
       case 'animals':
-        return 'Bé tìm con ${_lesson.translation.toLowerCase().replaceFirst('con ', '')} nhé';
+        return l10n.text('findAnimal', params: {'value': _lesson.word});
       case 'colors':
-        return 'Bé tìm ${_lesson.translation.toLowerCase()} nhé';
+        return l10n.text('findColor', params: {'value': _lesson.word});
       default:
-        return 'Bé tìm hình của chữ ${_lesson.letter} nhé';
+        return l10n.text('findLetter', params: {'value': _lesson.letter});
     }
   }
 
   String get _lessonSentence {
+    final l10n = AppLocalizations.of(context);
+    final params = {'letter': _lesson.letter, 'word': _lesson.word};
     switch (widget.topic) {
       case 'numbers':
-        return 'Number ${_lesson.letter}. ${_lesson.word}.';
+        return l10n.text('lessonSentenceNumber', params: params);
       case 'animals':
-        return '${_lesson.word}. This is a ${_lesson.word}.';
+        return l10n.text('lessonSentenceAnimal', params: params);
       case 'colors':
-        return '${_lesson.word}. This color is ${_lesson.word}.';
+        return l10n.text('lessonSentenceColor', params: params);
       default:
-        return 'Letter ${_lesson.letter}. ${_lesson.word}. This is ${_lesson.word}.';
+        return l10n.text('lessonSentenceLetter', params: params);
     }
   }
 
   String get _questionSentence {
+    final l10n = AppLocalizations.of(context);
     switch (widget.topic) {
       case 'numbers':
-        return 'Can you find number ${_lesson.letter}?';
-      case 'colors':
-        return 'Can you find ${_lesson.word}?';
+        return l10n.text('questionNumber', params: {'letter': _lesson.letter});
       default:
-        return 'Can you find ${_lesson.word}?';
+        return l10n.text('questionGeneric', params: {'word': _lesson.word});
     }
   }
 
@@ -1006,6 +1003,16 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final nextLocale = AppLocalizations.of(context).ttsLocale;
+    if (_ttsLocale != nextLocale) {
+      _ttsLocale = nextLocale;
+      _flutterTts.setLanguage(_ttsLocale);
+    }
+  }
+
+  @override
   void dispose() {
     _flutterTts.stop();
     _floatCtrl.dispose();
@@ -1016,7 +1023,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   Future<void> _setupTextToSpeech() async {
-    await _flutterTts.setLanguage('en-US');
+    await _flutterTts.setLanguage(_ttsLocale);
     await _flutterTts.setSpeechRate(0.38);
     await _flutterTts.setPitch(1.05);
     await _flutterTts.setVolume(1.0);
@@ -1031,7 +1038,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
       if (mounted) {
         setState(() {
           _isSpeaking = false;
-          _feedback = 'Máy chưa bật giọng đọc tiếng Anh';
+          _feedback = AppLocalizations.of(context).text('ttsNoVoice');
         });
       }
     });
@@ -1049,7 +1056,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
       if (mounted) {
         setState(() {
           _isSpeaking = false;
-          _feedback = 'Không phát được âm thanh, thử bật âm lượng máy nhé';
+          _feedback = AppLocalizations.of(context).text('ttsNoSound');
         });
       }
     }
@@ -1063,19 +1070,31 @@ class _S6lessonScreenState extends State<S6lessonScreen>
     setState(() {
       _selectedWord = option.word;
       if (option.isCorrect) {
-        _feedback = 'Giỏi lắm! Đây là ${_lesson.word}';
+        _feedback = AppLocalizations.of(
+          context,
+        ).text('greatJob', params: {'value': _lesson.word});
         if (_completedLessons.add(_currentIndex)) _stars += 3;
         _celebrateCtrl.forward(from: 0);
       } else {
-        _feedback = 'Gần đúng rồi, bé thử lại nhé';
+        _feedback = AppLocalizations.of(context).text('tryAgain');
       }
     });
     if (option.isCorrect) {
       SystemSound.play(SystemSoundType.alert);
-      _say('Great job! This is ${_lesson.word}.', speechRate: 0.36);
+      _say(
+        AppLocalizations.of(
+          context,
+        ).text('greatJob', params: {'value': _lesson.word}),
+        speechRate: 0.36,
+      );
     } else {
       SystemSound.play(SystemSoundType.click);
-      _say('Try again. $_questionSentence', speechRate: 0.34);
+      _say(
+        AppLocalizations.of(
+          context,
+        ).text('tryAgainVoice', params: {'question': _questionSentence}),
+        speechRate: 0.34,
+      );
     }
   }
 
@@ -1100,7 +1119,9 @@ class _S6lessonScreenState extends State<S6lessonScreen>
     }
 
     if (!_lessonComplete) {
-      setState(() => _feedback = 'Chọn đúng hình để mở bài tiếp theo nào');
+      setState(
+        () => _feedback = AppLocalizations.of(context).text('chooseToUnlock'),
+      );
       _speakQuestion();
       return;
     }
@@ -1284,6 +1305,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   Widget _buildGameCard(bool isTablet) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       key: ValueKey('game-${widget.topic}-${_lesson.letter}'),
       width: double.infinity,
@@ -1295,7 +1317,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
           Column(
             children: [
               Text(
-                'Chạm hoặc kéo hình đúng',
+                l10n.text('touchOrDrag'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: _lesson.color,
@@ -1355,7 +1377,10 @@ class _S6lessonScreenState extends State<S6lessonScreen>
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            'Đâu là ${_lesson.word}?',
+                            l10n.text(
+                              'whichIs',
+                              params: {'value': _lesson.word},
+                            ),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w900,
@@ -1430,6 +1455,7 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   Widget _buildPlayMascot(bool isTablet) {
+    final l10n = AppLocalizations.of(context);
     return AnimatedBuilder(
       animation: Listenable.merge([_floatAnim, _hintAnim]),
       builder: (context, child) {
@@ -1451,7 +1477,9 @@ class _S6lessonScreenState extends State<S6lessonScreen>
             Text(_lesson.emoji, style: TextStyle(fontSize: isTablet ? 26 : 22)),
             const SizedBox(width: 8),
             Text(
-              _lessonComplete ? 'Yay! +3 sao' : 'Nghe rồi chọn nhé',
+              _lessonComplete
+                  ? l10n.text('greatStars')
+                  : l10n.text('listenThenChoose'),
               style: TextStyle(
                 color: _lesson.color,
                 fontSize: 12,
@@ -1559,20 +1587,21 @@ class _S6lessonScreenState extends State<S6lessonScreen>
   }
 
   Widget _buildBottomControls() {
+    final l10n = AppLocalizations.of(context);
     final isLast = _currentIndex == _lessons.length - 1;
     final mainLabel = !_playMode
-        ? 'Chơi thử'
+        ? l10n.text('tryGame')
         : !_lessonComplete
-        ? 'Tìm hình đúng'
+        ? l10n.text('findCorrect')
         : isLast
-        ? 'Làm Quiz'
-        : 'Bài tiếp';
+        ? l10n.text('quiz')
+        : l10n.text('nextLesson');
 
     return Row(
       children: [
         Expanded(
           child: _RoundActionButton(
-            label: 'Trước',
+            label: l10n.text('previous'),
             icon: Icons.chevron_left_rounded,
             enabled: _currentIndex > 0,
             color: const Color(0xFF64748B),
@@ -1730,6 +1759,7 @@ class _ModeSwitch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -1740,14 +1770,14 @@ class _ModeSwitch extends StatelessWidget {
       child: Row(
         children: [
           _ModeChip(
-            label: 'Học',
+            label: l10n.text('learn'),
             icon: Icons.school_rounded,
             active: !playMode,
             color: color,
             onTap: onLearn,
           ),
           _ModeChip(
-            label: 'Chơi',
+            label: l10n.text('play'),
             icon: Icons.extension_rounded,
             active: playMode,
             color: color,
@@ -1882,9 +1912,9 @@ class _SpeakButton extends StatelessWidget {
         icon: Icon(
           isSpeaking ? Icons.graphic_eq_rounded : Icons.volume_up_rounded,
         ),
-        label: const Text(
-          'Nghe',
-          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+        label: Text(
+          AppLocalizations.of(context).text('listen'),
+          style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
         ),
       ),
     );
@@ -1929,9 +1959,9 @@ class _QuestionSoundButton extends StatelessWidget {
               size: 16,
             ),
             const SizedBox(width: 6),
-            const Text(
-              'Nghe câu hỏi',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).text('listenQuestion'),
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
